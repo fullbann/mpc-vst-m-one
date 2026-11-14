@@ -28,6 +28,7 @@ extern "C" {
 #include <pthread.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <time.h>
 #include <strings.h>
 
 
@@ -152,6 +153,7 @@ void lib_scan() {
     }
 }
 void lib_init() { pthread_once(&g_libOnce, lib_scan); }
+double now_s() { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec + t.tv_nsec * 1e-9; }
 
 // ---------------------------------------------------------------- the user's ROMs (Content/ROMs)
 m1load::Rom* g_rom = nullptr;
@@ -259,6 +261,7 @@ struct MOne {
     int16_t fxMem[65536];
     uint8_t kernel[32768];
     bool noRom = false;                           // no ROMs: silent, the display says so
+    double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
     uint8_t progs[m1::kPrograms * m1::kProgLen];
     uint8_t combis[m1::kCombis * m1::kCombiLen];
@@ -531,7 +534,17 @@ void lib_param_set(MOne* m, const char* r, int iv) {
     if (!strcmp(r, "src")) {
         const int s = clampi(iv, 0, 1);
         if (s != m->libSrc) { m->libSrc = s; lib_changed(m, kChgLibSrc); }
-    } else if (!strcmp(r, "author")) {
+        return;
+    }
+    // Touching author or bank (knob, wheel or arrows) while the source is Factory switches to the Library: in Factory
+    // they did nothing you could see or hear.
+    // Not while the plugin is being set up (MPC restoring a project or its defaults), and only for a real change.
+    if (m->libSrc == 0 && now_s() - m->bornS > 3.0) {
+        const bool knob = !strcmp(r, "author") || !strcmp(r, "bank");
+        const int cur = !strcmp(r, "author") ? m->libAuthor : m->libBank;
+        if ((knob && clampi(iv, 0, 255) != cur) || (!knob && iv)) { m->libSrc = 1; lib_changed(m, kChgLibSrc); }
+    }
+    if (!strcmp(r, "author")) {
         const int a = clampi(iv, 0, na - 1);
         if (a != m->libAuthor) { m->libAuthor = a; m->libBank = 0; lib_changed(m, kChgLibAuthor | kChgLibBank); }
     } else if (!strcmp(r, "author_prev") || !strcmp(r, "author_next")) {
@@ -575,6 +588,7 @@ void* create(const char*) {
     rom_init();
     MOne* m = new (std::nothrow) MOne();
     if (!m) return nullptr;
+    m->bornS = now_s();
     lib_init();
     if (!g_rom) { m->noRom = true; fx_defaults(m); return m; }   // silent until the ROMs are in Content/ROMs
     const m1load::Rom& R = *g_rom;
