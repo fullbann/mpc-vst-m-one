@@ -569,9 +569,8 @@ void lib_param_set_(MOne* m, const char* r, int iv) {
         if (s != m->libSrc) { m->libSrc = s; lib_changed(m, kChgLibSrc); }
         return;
     }
-    // Touching author or bank (knob, wheel or arrows) while the source is Factory switches to the Library: in Factory
-    // they did nothing you could see or hear.
-    // Not while the plugin is being set up (MPC restoring a project or its defaults), and only for a real change.
+    // Author and bank (knobs, wheel, arrows) only work in the Library; on Factory they do nothing (user's choice,
+    // 2026-11-14: switching source is the FACTORY / LIBRARY tabs' job).
     // The author / bank knobs are endless encoders: only the direction of a move counts, and the value goes back to 50
     // after each one (reported, so MPC reads it back and never runs ahead). A slow click (data wheel, a careful
     // Q-Link) moves one item; in a fast Q-Link turn it takes kEncTicks events. A jump (MPC catching up, automation)
@@ -594,7 +593,7 @@ void lib_param_set_(MOne* m, const char* r, int iv) {
         if (d == 0) return;
         raw = 50; m->changed |= k ? kChgLibBank : kChgLibAuthor;          // back to the middle
         if (now_s() - m->bornS <= 3.0 || d > 6 || d < -6) return;           // set-up, or a jump
-        if (m->libSrc == 0) { m->libSrc = 1; m->encLast[k] = now_s(); m->encAcc[k] = 0; lib_changed(m, kChgLibSrc); return; }   // first touch: just switch (and a quick 2nd event is part of it)
+        if (m->libSrc != 1) return;                                          // Factory: the Library knobs do nothing
         const int dir = d > 0 ? 1 : -1;
         const double now = now_s();
         int step = 0;
@@ -610,7 +609,7 @@ void lib_param_set_(MOne* m, const char* r, int iv) {
         else { m->libBank = (m->libBank + step + nb) % nb; { m->hlReport |= 8; lib_changed(m, 0); } }
         return;
     }
-    if (m->libSrc == 0 && iv && now_s() - m->bornS > 3.0) { m->libSrc = 1; lib_changed(m, kChgLibSrc); return; }   // an arrow
+    if (m->libSrc != 1) return;                                              // Factory: the Library arrows do nothing
     if (false) {
     } else if (!strcmp(r, "author_prev") || !strcmp(r, "author_next")) {
         if (!iv) return;
