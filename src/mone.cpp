@@ -261,6 +261,7 @@ struct MOne {
     int16_t fxMem[65536];
     uint8_t kernel[32768];
     bool noRom = false;                           // no ROMs: silent, the display says so
+    int rawAuthor = 0, rawBank = 0;                // the author / bank knobs as MPC has them (0..99, loop round the list)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
     uint8_t progs[m1::kPrograms * m1::kProgLen];
@@ -541,24 +542,30 @@ void lib_param_set(MOne* m, const char* r, int iv) {
     // Not while the plugin is being set up (MPC restoring a project or its defaults), and only for a real change.
     if (m->libSrc == 0 && now_s() - m->bornS > 3.0) {
         const bool knob = !strcmp(r, "author") || !strcmp(r, "bank");
-        const int cur = !strcmp(r, "author") ? m->libAuthor : m->libBank;
-        if ((knob && clampi(iv, 0, 255) != cur) || (!knob && iv)) { m->libSrc = 1; lib_changed(m, kChgLibSrc); }
+        const int cur = !strcmp(r, "author") ? m->rawAuthor : m->rawBank;
+        if ((knob && clampi(iv, 0, 99) != cur) || (!knob && iv)) { m->libSrc = 1; lib_changed(m, kChgLibSrc); }
     }
+    // The knobs (Q-Link, data wheel) step like the sound selector: the value runs 0..99 and loops round the list, and a
+    // knob's own move is not echoed back to MPC (an echo mid-turn lost or doubled clicks). Arrows report both.
     if (!strcmp(r, "author")) {
-        const int a = clampi(iv, 0, na - 1);
-        if (a != m->libAuthor) { m->libAuthor = a; m->libBank = 0; lib_changed(m, kChgLibAuthor | kChgLibBank); }
+        m->rawAuthor = clampi(iv, 0, 99);
+        const int a = m->rawAuthor % na;
+        if (a != m->libAuthor) { m->libAuthor = a; m->libBank = 0; m->rawBank = 0; lib_changed(m, kChgLibBank); }
     } else if (!strcmp(r, "author_prev") || !strcmp(r, "author_next")) {
         if (!iv) return;
         m->libAuthor = (m->libAuthor + (r[7] == 'n' ? 1 : -1) + na) % na; m->libBank = 0;
+        m->rawAuthor = m->libAuthor; m->rawBank = 0;
         lib_changed(m, kChgLibAuthor | kChgLibBank);
     } else if (!strcmp(r, "bank")) {
-        const int b = clampi(iv, 0, nb - 1);
-        if (b != m->libBank) { m->libBank = b; lib_changed(m, kChgLibBank); }
+        m->rawBank = clampi(iv, 0, 99);
+        const int b = m->rawBank % nb;
+        if (b != m->libBank) { m->libBank = b; lib_changed(m, 0); }
     } else if (!strcmp(r, "bank_prev") || !strcmp(r, "bank_next")) {   // runs on through the authors
         if (!iv) return;
         if (r[5] == 'n') { if (++m->libBank >= nb) { m->libBank = 0; m->libAuthor = (m->libAuthor + 1) % na; } }
         else if (--m->libBank < 0) { m->libAuthor = (m->libAuthor - 1 + na) % na;
                                      m->libBank = g_nAuth > 0 ? g_auth[m->libAuthor].count - 1 : 0; }
+        m->rawAuthor = m->libAuthor; m->rawBank = m->libBank;
         lib_changed(m, kChgLibAuthor | kChgLibBank);
     }
 }
@@ -751,8 +758,8 @@ int get_param(void* i, const char* k, char* buf, int n) {
         const char* r = k + 4;
         const bool lib = m->libSrc == 1;
         if (!strcmp(r, "src")) return snprintf(buf, n, "%s", lib ? "Library" : "Factory");
-        if (!strcmp(r, "author")) return snprintf(buf, n, "%d", m->libAuthor);
-        if (!strcmp(r, "bank")) return snprintf(buf, n, "%d", m->libBank);
+        if (!strcmp(r, "author")) return snprintf(buf, n, "%d", m->rawAuthor);
+        if (!strcmp(r, "bank")) return snprintf(buf, n, "%d", m->rawBank);
         if (!strcmp(r, "author_display")) {
             if (!lib) return snprintf(buf, n, "Factory");
             if (!g_nAuth) return snprintf(buf, n, "No banks found");
