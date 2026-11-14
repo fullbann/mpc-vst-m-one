@@ -1,0 +1,7338 @@
+{
+ "pageData": {
+  "version": 1,
+  "componentDefinitions": {
+   "version": 2,
+   "importFiles": [
+    "/usr/share/Akai/Content/Synths/Generic/Generic Knob Overlay.json",
+    "/usr/share/Akai/Content/Synths/Generic/Generic Menu Overlay.json"
+   ],
+   "localComponentDefinitions": [
+    {
+     "key": "shReadout_500x34_26_dcd4ff_Bold_horizontallyCentred_Roboto_p8",
+     "value": {
+      "version": 4,
+      "actions": [],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Roboto",
+            "style": "Bold",
+            "height": 26.0
+           },
+           "colour": "ffdcd4ff",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Value",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "8 0 484 34",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shStepText_610x68_58_e8e2ff_Bold_horizontallyCentred_Roboto",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Double Click",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 610 68",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Roboto",
+            "style": "Bold",
+            "height": 58.0
+           },
+           "colour": "ffe8e2ff",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Value",
+          "handleName": "Text"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "8 0 594 68",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_0_sound_prev",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_0_sound_prev.png",
+          "offImage": "sh_arrow_0_sound_prev.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 68 68",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_0_sound_next",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_0_sound_next.png",
+          "offImage": "sh_arrow_0_sound_next.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 68 68",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_mode_0",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_mode_0_on.png",
+          "offImage": "sh_seg_mode_0_off.png",
+          "buttonId": 0,
+          "numButtonsInGroup": 2,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_mode_1",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_mode_1_on.png",
+          "offImage": "sh_seg_mode_1_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 2,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shToggle",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 120 58",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_pill_on.png",
+          "offImage": "sh_pill_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "33 4 53 29",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Name",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "SemiBold",
+            "height": 15.0
+           },
+           "colour": "ffe8edf2",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Name",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 34 120 20",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shKnob44_14ea1747_ls1.15",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Double Click",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Knob",
+         "type": "Knob",
+         "data": {
+          "version": 5,
+          "knobType": "FilmStrip",
+          "filmStrip": "sh_knob_r44_14ea1747.png",
+          "numFrames": 127,
+          "invert": false,
+          "dragOrientation": "Vertical",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "16 0 98 98",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Name",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "SemiBold",
+            "height": 15.0
+           },
+           "colour": "ff8a95a5",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Name",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 95 130 23",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "Bold",
+            "height": 25.299999999999997
+           },
+           "colour": "ff2fd2c6",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Upper Case"
+          },
+          "type": "Value",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 120 130 30",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shKnob38_14ea1747_ls1.15",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Double Click",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 130 144",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Knob",
+         "type": "Knob",
+         "data": {
+          "version": 5,
+          "knobType": "FilmStrip",
+          "filmStrip": "sh_knob_r38_14ea1747.png",
+          "numFrames": 127,
+          "invert": false,
+          "dragOrientation": "Vertical",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "22 0 86 86",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Name",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "SemiBold",
+            "height": 15.0
+           },
+           "colour": "ff8a95a5",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Name",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 83 130 23",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "Bold",
+            "height": 25.299999999999997
+           },
+           "colour": "ff2fd2c6",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Upper Case"
+          },
+          "type": "Value",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 108 130 30",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shKnob38_14ea1747_ls1.15_bw120",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Double Click",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 120 144",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Knob",
+         "type": "Knob",
+         "data": {
+          "version": 5,
+          "knobType": "FilmStrip",
+          "filmStrip": "sh_knob_r38_14ea1747.png",
+          "numFrames": 127,
+          "invert": false,
+          "dragOrientation": "Vertical",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "17 0 86 86",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Name",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "SemiBold",
+            "height": 15.0
+           },
+           "colour": "ff8a95a5",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Name",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 83 120 23",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "Bold",
+            "height": 25.299999999999997
+           },
+           "colour": "ff2fd2c6",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Upper Case"
+          },
+          "type": "Value",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 108 120 30",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "PLAY|PLAY",
+     "value": {
+      "version": 4,
+      "actions": [],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "ff12161d",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "ff12161d",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Background",
+         "type": "Image",
+         "data": {
+          "version": 2,
+          "imageType": "Regular",
+          "colour": "0",
+          "image": "sh_bg_0.png"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 1280 628",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shReadout_500x34_26_dcd4ff_Bold_horizontallyCentred_Roboto_p8",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 16"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "154 25 500 34",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shStepText_610x68_58_e8e2ff_Bold_horizontallyCentred_Roboto",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 67"
+          },
+          {
+           "key": "Text",
+           "value": "Parameter 15"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "99 50 610 68",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " prev",
+         "type": "shTap_0_sound_prev",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 3"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "28 50 68 68",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " next",
+         "type": "shTap_0_sound_next",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 4"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "712 50 68 68",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " PROGRAM",
+         "type": "shSeg_mode_0",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 0"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "82 162 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " COMBI",
+         "type": "shSeg_mode_1",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 0"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "201 162 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "EFFECTS",
+         "type": "shToggle",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 14"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "410 160 120 58",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "CUTOFF",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 5"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "35 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "FILTER EG",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 6"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "189 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "ATTACK",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 7"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "343 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "DECAY",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 8"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "497 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "SUSTAIN",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 9"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "651 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "RELEASE",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 10"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "805 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "VIBRATO",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 11"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "959 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "FX AMOUNT",
+         "type": "shKnob44_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 12"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1113 270 130 156",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "VOLUME",
+         "type": "shKnob38_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 13"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "45 467 130 144",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "SOUND",
+         "type": "shKnob38_14ea1747_ls1.15",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 67"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "235 467 130 144",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "REVERB",
+         "type": "shKnob38_14ea1747_ls1.15_bw120",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 68"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1000 467 120 144",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "DELAY",
+         "type": "shKnob38_14ea1747_ls1.15_bw120",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 69"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1130 467 120 144",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_lib_src_0",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_lib_src_0_on.png",
+          "offImage": "sh_seg_lib_src_0_off.png",
+          "buttonId": 0,
+          "numButtonsInGroup": 2,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_lib_src_1",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_lib_src_1_on.png",
+          "offImage": "sh_seg_lib_src_1_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 2,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_bank_0",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_bank_0_on.png",
+          "offImage": "sh_seg_bank_0_off.png",
+          "buttonId": 0,
+          "numButtonsInGroup": 5,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_bank_1",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_bank_1_on.png",
+          "offImage": "sh_seg_bank_1_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 5,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_bank_2",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_bank_2_on.png",
+          "offImage": "sh_seg_bank_2_off.png",
+          "buttonId": 2,
+          "numButtonsInGroup": 5,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_bank_3",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_bank_3_on.png",
+          "offImage": "sh_seg_bank_3_off.png",
+          "buttonId": 3,
+          "numButtonsInGroup": 5,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_bank_4",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_bank_4_on.png",
+          "offImage": "sh_seg_bank_4_off.png",
+          "buttonId": 4,
+          "numButtonsInGroup": 5,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shStepText_492x56_30_e8e2ff_Bold_horizontallyCentred_Roboto",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Double Click",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 492 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Roboto",
+            "style": "Bold",
+            "height": 30.0
+           },
+           "colour": "ffe8e2ff",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Value",
+          "handleName": "Text"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "8 0 476 56",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_1_lib_author_prev",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_1_lib_author_prev.png",
+          "offImage": "sh_arrow_1_lib_author_prev.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_1_lib_author_next",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_1_lib_author_next.png",
+          "offImage": "sh_arrow_1_lib_author_next.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_1_lib_bank_prev",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_1_lib_bank_prev.png",
+          "offImage": "sh_arrow_1_lib_bank_prev.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_1_lib_bank_next",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_1_lib_bank_next.png",
+          "offImage": "sh_arrow_1_lib_bank_next.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_tile_302x88_1a1f28_on.png",
+          "offImage": "sh_tile_302x88_1a1f28_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "SemiBold",
+            "height": 30.0
+           },
+           "colour": "ffe8edf2",
+           "justification": "left verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Value",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "12 0 278 88",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shHl_lib",
+     "value": {
+      "version": 4,
+      "actions": [],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": true,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_hl_492x56_on.png",
+          "offImage": "sh_hl_492x56_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 2,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 492 56",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "BROWSE|BROWSE",
+     "value": {
+      "version": 4,
+      "actions": [],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "ff12161d",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "ff12161d",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Background",
+         "type": "Image",
+         "data": {
+          "version": 2,
+          "imageType": "Regular",
+          "colour": "0",
+          "image": "sh_bg_1.png"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 1280 628",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " FACTORY",
+         "type": "shSeg_lib_src_0",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 70"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "32 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " LIBRARY",
+         "type": "shSeg_lib_src_1",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 70"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "151 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " PROGRAM",
+         "type": "shSeg_mode_0",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 0"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "302 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " COMBI",
+         "type": "shSeg_mode_1",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 0"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "421 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " 00-19",
+         "type": "shSeg_bank_0",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 17"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "634 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " 20-39",
+         "type": "shSeg_bank_1",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 17"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "753 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " 40-59",
+         "type": "shSeg_bank_2",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 17"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "872 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " 60-79",
+         "type": "shSeg_bank_3",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 17"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "991 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " 80-99",
+         "type": "shSeg_bank_4",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 17"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1110 16 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shStepText_492x56_30_e8e2ff_Bold_horizontallyCentred_Roboto",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 71"
+          },
+          {
+           "key": "Text",
+           "value": "Parameter 71"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "79 67 492 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " prev",
+         "type": "shTap_1_lib_author_prev",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 72"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "20 67 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " next",
+         "type": "shTap_1_lib_author_next",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 73"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "574 67 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shStepText_492x56_30_e8e2ff_Bold_horizontallyCentred_Roboto",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 74"
+          },
+          {
+           "key": "Text",
+           "value": "Parameter 74"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "709 67 492 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " prev",
+         "type": "shTap_1_lib_bank_prev",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 75"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "650 67 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " next",
+         "type": "shTap_1_lib_bank_next",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 76"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1204 67 56 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 1",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 18"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "20 138 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 2",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 23"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "332 138 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 3",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 28"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "644 138 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 4",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 33"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "956 138 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 5",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 19"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "20 236 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 6",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 24"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "332 236 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 7",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 29"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "644 236 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 8",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 34"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "956 236 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 9",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 20"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "20 334 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 10",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 25"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "332 334 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 11",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 30"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "644 334 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 12",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 35"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "956 334 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 13",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 21"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "20 432 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 14",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 26"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "332 432 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 15",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 31"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "644 432 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 16",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 36"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "956 432 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 17",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 22"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "20 530 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 18",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 27"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "332 530 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 19",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 32"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "644 530 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "sl 20",
+         "type": "shRow_302x88_30_e8edf2_SemiBold_left_Titillium_Web",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 37"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "956 530 302 88",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shHl_lib",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 77"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "79 67 492 56",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shHl_lib",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 78"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "709 67 492 56",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx_route_0",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx_route_0_on.png",
+          "offImage": "sh_seg_fx_route_0_off.png",
+          "buttonId": 0,
+          "numButtonsInGroup": 2,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx_route_1",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx_route_1_on.png",
+          "offImage": "sh_seg_fx_route_1_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 2,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTrig_fx_reset_RESET",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 150 44",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_btn_fx_reset_RESET_on.png",
+          "offImage": "sh_btn_fx_reset_RESET_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 150 44",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shToggle_bw110",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 110 58",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_pill_on.png",
+          "offImage": "sh_pill_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "28 4 53 29",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Name",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "SemiBold",
+            "height": 15.0
+           },
+           "colour": "ffe8edf2",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Name",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 34 110 20",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx1_cat_0",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx1_cat_0_on.png",
+          "offImage": "sh_seg_fx1_cat_0_off.png",
+          "buttonId": 0,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx1_cat_1",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx1_cat_1_on.png",
+          "offImage": "sh_seg_fx1_cat_1_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx1_cat_2",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx1_cat_2_on.png",
+          "offImage": "sh_seg_fx1_cat_2_off.png",
+          "buttonId": 2,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx1_cat_3",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx1_cat_3_on.png",
+          "offImage": "sh_seg_fx1_cat_3_off.png",
+          "buttonId": 3,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx1_cat_4",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx1_cat_4_on.png",
+          "offImage": "sh_seg_fx1_cat_4_off.png",
+          "buttonId": 4,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx1_cat_5",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx1_cat_5_on.png",
+          "offImage": "sh_seg_fx1_cat_5_off.png",
+          "buttonId": 5,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx1_cat_6",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx1_cat_6_on.png",
+          "offImage": "sh_seg_fx1_cat_6_off.png",
+          "buttonId": 6,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shStepText_464x60_34_e8e2ff_Bold_horizontallyCentred_Roboto",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Double Click",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 464 60",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Roboto",
+            "style": "Bold",
+            "height": 34.0
+           },
+           "colour": "ffe8e2ff",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Value",
+          "handleName": "Text"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "8 0 448 60",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_2_fx1_type_prev",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_2_fx1_type_prev.png",
+          "offImage": "sh_arrow_2_fx1_type_prev.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_2_fx1_type_next",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_2_fx1_type_next.png",
+          "offImage": "sh_arrow_2_fx1_type_next.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Double Click",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       },
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Show Overlay",
+        "handleName": "",
+        "additionalData": "knob overlay",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Focus",
+         "type": "Focus",
+         "data": {
+          "version": 1,
+          "backgroundColour": "1a2fd2c6",
+          "outlineColour": "cc2fd2c6",
+          "backgroundInset": 3.0,
+          "outlineThickness": 2.0
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "WhenFocussed",
+         "boundsType": "Absolute",
+         "bounds": "0 0 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Knob",
+         "type": "Knob",
+         "data": {
+          "version": 5,
+          "knobType": "FilmStrip",
+          "filmStrip": "sh_knob_r32_14ea1747.png",
+          "numFrames": 127,
+          "invert": false,
+          "dragOrientation": "Vertical",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "33 0 74 74",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Name",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "SemiBold",
+            "height": 15.0
+           },
+           "colour": "ff8a95a5",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Original"
+          },
+          "type": "Name",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 71 140 23",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Value",
+         "type": "Label",
+         "data": {
+          "version": 1,
+          "textStyle": {
+           "version": 1,
+           "font": {
+            "version": 1,
+            "name": "Titillium Web",
+            "style": "Bold",
+            "height": 22.0
+           },
+           "colour": "ff2fd2c6",
+           "justification": "horizontallyCentred verticallyCentred",
+           "case": "Upper Case"
+          },
+          "type": "Value",
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 96 140 30",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx2_cat_0",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx2_cat_0_on.png",
+          "offImage": "sh_seg_fx2_cat_0_off.png",
+          "buttonId": 0,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx2_cat_1",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx2_cat_1_on.png",
+          "offImage": "sh_seg_fx2_cat_1_off.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx2_cat_2",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx2_cat_2_on.png",
+          "offImage": "sh_seg_fx2_cat_2_off.png",
+          "buttonId": 2,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx2_cat_3",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx2_cat_3_on.png",
+          "offImage": "sh_seg_fx2_cat_3_off.png",
+          "buttonId": 3,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx2_cat_4",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx2_cat_4_on.png",
+          "offImage": "sh_seg_fx2_cat_4_off.png",
+          "buttonId": 4,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx2_cat_5",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx2_cat_5_on.png",
+          "offImage": "sh_seg_fx2_cat_5_off.png",
+          "buttonId": 5,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shSeg_fx2_cat_6",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Mouse Down",
+        "handler": "Q-Link",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_seg_fx2_cat_6_on.png",
+          "offImage": "sh_seg_fx2_cat_6_off.png",
+          "buttonId": 6,
+          "numButtonsInGroup": 7,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_2_fx2_type_prev",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_2_fx2_type_prev.png",
+          "offImage": "sh_arrow_2_fx2_type_prev.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "shTap_2_fx2_type_next",
+     "value": {
+      "version": 4,
+      "actions": [
+       {
+        "version": 2,
+        "onAction": "Enter Pressed",
+        "handler": "Toggle Switch",
+        "handleName": "Data",
+        "additionalData": "",
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        }
+       }
+      ],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "0",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Button",
+         "type": "Button",
+         "data": {
+          "version": 2,
+          "onImage": "sh_arrow_2_fx2_type_next.png",
+          "offImage": "sh_arrow_2_fx2_type_next.png",
+          "buttonId": 1,
+          "numButtonsInGroup": 1,
+          "handleName": "Data",
+          "gestureBehaviour": "Instant"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    },
+    {
+     "key": "FX|FX",
+     "value": {
+      "version": 4,
+      "actions": [],
+      "backgroundData": {
+       "version": 1,
+       "focussed": {
+        "version": 1,
+        "colour": "ff12161d",
+        "image": ""
+       },
+       "unfocussed": {
+        "version": 1,
+        "colour": "ff12161d",
+        "image": ""
+       }
+      },
+      "ignoreMousePresses": false,
+      "disableCoarseDataWheel": false,
+      "repeats": 1,
+      "hideQLinkBounds": true,
+      "componentsData": [
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "Background",
+         "type": "Image",
+         "data": {
+          "version": 2,
+          "imageType": "Regular",
+          "colour": "0",
+          "image": "sh_bg_2.png"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": []
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Show",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "0 0 1280 628",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " PARALLEL",
+         "type": "shSeg_fx_route_0",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 40"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "132 34 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " SERIAL",
+         "type": "shSeg_fx_route_1",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 40"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "251 34 117 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "PRESET FX",
+         "type": "shToggle",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 38"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "640 32 120 58",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "RESET",
+         "type": "shTrig_fx_reset_RESET",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 39"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "945 28 150 44",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "ON",
+         "type": "shToggle_bw110",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 41"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "505 122 110 58",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " REVERB",
+         "type": "shSeg_fx1_cat_0",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 42"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "39 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " EARLY",
+         "type": "shSeg_fx1_cat_1",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 42"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "121 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " DELAY",
+         "type": "shSeg_fx1_cat_2",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 42"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "203 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " MOD",
+         "type": "shSeg_fx1_cat_3",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 42"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "285 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " DRIVE",
+         "type": "shSeg_fx1_cat_4",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 42"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "367 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " EQ",
+         "type": "shSeg_fx1_cat_5",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 42"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "449 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " DUAL",
+         "type": "shSeg_fx1_cat_6",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 42"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "531 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shStepText_464x60_34_e8e2ff_Bold_horizontallyCentred_Roboto",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 43"
+          },
+          {
+           "key": "Text",
+           "value": "Parameter 43"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "93 230 464 60",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " prev",
+         "type": "shTap_2_fx1_type_prev",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 44"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "30 230 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " next",
+         "type": "shTap_2_fx1_type_next",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 45"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "560 230 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 46"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "30 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 47"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "180 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 48"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "330 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 49"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "480 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 50"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "30 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 51"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "180 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 52"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "330 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 53"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "480 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "ON",
+         "type": "shToggle_bw110",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 54"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1135 122 110 58",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " REVERB",
+         "type": "shSeg_fx2_cat_0",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 55"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "669 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " EARLY",
+         "type": "shSeg_fx2_cat_1",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 55"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "751 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " DELAY",
+         "type": "shSeg_fx2_cat_2",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 55"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "833 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " MOD",
+         "type": "shSeg_fx2_cat_3",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 55"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "915 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " DRIVE",
+         "type": "shSeg_fx2_cat_4",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 55"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "997 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " EQ",
+         "type": "shSeg_fx2_cat_5",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 55"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1079 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " DUAL",
+         "type": "shSeg_fx2_cat_6",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 55"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1161 178 80 33",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shStepText_464x60_34_e8e2ff_Bold_horizontallyCentred_Roboto",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 56"
+          },
+          {
+           "key": "Text",
+           "value": "Parameter 56"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "723 230 464 60",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " prev",
+         "type": "shTap_2_fx2_type_prev",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 57"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "660 230 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": " next",
+         "type": "shTap_2_fx2_type_next",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 58"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "No",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1190 230 60 60",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 59"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "660 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 60"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "810 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 61"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "960 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 62"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1110 323 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 63"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "660 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 64"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "810 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 65"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "960 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       },
+       {
+        "version": 2,
+        "componentData": {
+         "version": 1,
+         "name": "",
+         "type": "shKnob32_14ea1747_ls1.15_ns15_vs22_bw140",
+         "data": {
+          "version": 1,
+          "handleName": "Data"
+         }
+        },
+        "handle remapping": {
+         "version": 1,
+         "map": [
+          {
+           "key": "Data",
+           "value": "Parameter 66"
+          }
+         ]
+        },
+        "bounds": {
+         "version": 2,
+         "acceptsHWFocus": "Yes",
+         "showWhenDataModelInvalid": "Hide",
+         "whenVisible": "Always",
+         "boundsType": "Absolute",
+         "bounds": "1110 465 140 132",
+         "additionalInvalidatingHandles": []
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "info": {
+   "version": 1,
+   "type": "CompleteDescription"
+  },
+  "tabs": [
+   {
+    "version": 3,
+    "tabName": "PLAY",
+    "fnKeyIndex": 0,
+    "fnKeySubIndex": 0,
+    "qlinkBoundsData": [
+     "0 0 0 0"
+    ],
+    "componentName": "PLAY|PLAY",
+    "initialSize": "0 0 1280 628",
+    "scale": 1.0
+   },
+   {
+    "version": 3,
+    "tabName": "BROWSE",
+    "fnKeyIndex": 1,
+    "fnKeySubIndex": 0,
+    "qlinkBoundsData": [
+     "0 0 0 0"
+    ],
+    "componentName": "BROWSE|BROWSE",
+    "initialSize": "0 0 1280 628",
+    "scale": 1.0
+   },
+   {
+    "version": 3,
+    "tabName": "FX",
+    "fnKeyIndex": 2,
+    "fnKeySubIndex": 0,
+    "qlinkBoundsData": [
+     "0 0 0 0"
+    ],
+    "componentName": "FX|FX",
+    "initialSize": "0 0 1280 628",
+    "scale": 1.0
+   }
+  ]
+ }
+}

@@ -261,6 +261,8 @@ struct MOne {
     int16_t fxMem[65536];
     uint8_t kernel[32768];
     bool noRom = false;                           // no ROMs: silent, the display says so
+    int hlAuthor = 0, hlBank = 0, hlReport = 0;    // the outline lit on the author / bank box while it changes
+    double hlTime = 0;
     int rawAuthor = 0, rawBank = 0;                // the author / bank knobs as MPC has them (0..99, loop round the list)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
@@ -529,7 +531,7 @@ void lib_changed(MOne* m, unsigned bits) {
     m->changed |= bits | kChgSound | 1u | 2u;
     select_sound(m);
 }
-void lib_param_set(MOne* m, const char* r, int iv) {
+void lib_param_set_(MOne* m, const char* r, int iv) {
     const int na = g_nAuth > 0 ? g_nAuth : 1;
     const int nb = g_nAuth > 0 ? g_auth[clampi(m->libAuthor, 0, g_nAuth - 1)].count : 1;
     if (!strcmp(r, "src")) {
@@ -569,6 +571,16 @@ void lib_param_set(MOne* m, const char* r, int iv) {
         m->rawAuthor = m->libAuthor; m->rawBank = m->libBank;
         lib_changed(m, kChgLibAuthor | kChgLibBank);
     }
+}
+
+// Lights the outline of the box that changed (author or bank) for 1.5 s; mpc_engine_changed reports it and puts it out.
+void lib_param_set(MOne* m, const char* r, int iv) {
+    if (strstr(r, "_hl")) return;                    // the outlines are the plugin's own, MPC only shows them
+    const int a0 = m->libAuthor, b0 = m->libBank;
+    lib_param_set_(m, r, iv);
+    if (m->libSrc != 1) return;
+    if (m->libAuthor != a0) { if (!m->hlAuthor) m->hlReport |= 1; m->hlAuthor = 1; if (m->hlBank) { m->hlBank = 0; m->hlReport |= 2; } m->hlTime = now_s(); }
+    else if (m->libBank != b0) { if (!m->hlBank) m->hlReport |= 2; m->hlBank = 1; if (m->hlAuthor) { m->hlAuthor = 0; m->hlReport |= 1; } m->hlTime = now_s(); }
 }
 
 void select_sound(MOne* m) {
@@ -759,6 +771,8 @@ int get_param(void* i, const char* k, char* buf, int n) {
         const char* r = k + 4;
         const bool lib = m->libSrc == 1;
         if (!strcmp(r, "src")) return snprintf(buf, n, "%s", lib ? "Library" : "Factory");
+        if (!strcmp(r, "author_hl")) return snprintf(buf, n, "%s", m->hlAuthor ? "On" : "Off");
+        if (!strcmp(r, "bank_hl")) return snprintf(buf, n, "%s", m->hlBank ? "On" : "Off");
         if (!strcmp(r, "author")) return snprintf(buf, n, "%d", m->rawAuthor);
         if (!strcmp(r, "bank")) return snprintf(buf, n, "%d", m->rawBank);
         if (!strcmp(r, "author_display")) {
@@ -840,6 +854,13 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     if (m->changed & kChgLibSrc) { m->changed &= ~kChgLibSrc; snprintf(key, len, "lib_src"); return 1; }
     if (m->changed & kChgLibAuthor) { m->changed &= ~kChgLibAuthor; snprintf(key, len, "lib_author"); return 1; }
     if (m->changed & kChgLibBank) { m->changed &= ~kChgLibBank; snprintf(key, len, "lib_bank"); return 1; }
+    if ((m->hlAuthor || m->hlBank) && now_s() - m->hlTime > 1.5) {
+        if (m->hlAuthor) m->hlReport |= 1;
+        if (m->hlBank) m->hlReport |= 2;
+        m->hlAuthor = m->hlBank = 0;
+    }
+    if (m->hlReport & 1) { m->hlReport &= ~1; snprintf(key, len, "lib_author_hl"); return 1; }
+    if (m->hlReport & 2) { m->hlReport &= ~2; snprintf(key, len, "lib_bank_hl"); return 1; }
     for (int i = 0; i < kFxKeyCount; ++i)
         if (m->changed & (1u << (2 + i))) { m->changed &= ~(1u << (2 + i)); snprintf(key, len, "%s", kFxKeys[i]); return 1; }
     return 0;
