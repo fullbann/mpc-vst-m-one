@@ -1,35 +1,38 @@
 {
-  "name": "M-One",
-  "vendor": "Fullban",
-  "uid": "FbM1",
-  "version": 1300,
-  "so": "m-one.so",
-  "params": "params.json",
-  "programs": {
-    "param": "program"
-  },
-  "targets": [
-    "armv7",
-    "aarch64"
+ "name": "M-One",
+ "vendor": "Fullban",
+ "uid": "FbM1",
+ "version": 1300,
+ "so": "m-one.so",
+ "params": "params.json",
+ "programs": {
+  "param": "program"
+ },
+ "targets": [
+  "armv7",
+  "aarch64"
+ ],
+ "build": {
+  "root": "..",
+  "sources": [
+   "src/mone.cpp",
+   "src/m1/src/m1_engine.cpp",
+   "src/m1/src/m1_fx.cpp",
+   "src/m1_romload.cpp"
   ],
-  "build": {
-    "root": "..",
-    "sources": [
-      "src/mone.cpp",
-      "src/m1/src/m1_engine.cpp",
-      "src/m1/src/m1_fx.cpp",
-      "src/m1_romload.cpp"
-    ],
-    "cflags": [
-      "-std=gnu++17",
-      "-Isrc/m1/include",
-      "-Wno-missing-field-initializers"
-    ],
-    "libs": [
-      "-lm"
-    ]
-  },
-  "layout": "layout.conf",
-  "art": "html",
-  "skin_post": "skin_post.py"
+  "cflags": [
+   "-std=gnu++17",
+   "-Isrc/m1/include",
+   "-Wno-missing-field-initializers"
+  ],
+  "libs": [
+   "-lm"
+  ]
+ },
+ "layout": "layout.conf",
+ "art": "html",
+ "skin_post": "skin_post.py",
+ "defines": {
+  "UPDATE_QUIET_MS": 250
+ }
 }

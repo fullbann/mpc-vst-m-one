@@ -168,7 +168,7 @@ void trace_open() {
 }
 #define MONE_TRACE(...) do { trace_open(); if (g_trace) { struct timespec t_; clock_gettime(CLOCK_MONOTONIC, &t_); \
     fprintf(g_trace, "%ld.%03ld ", (long)t_.tv_sec, t_.tv_nsec / 1000000); fprintf(g_trace, __VA_ARGS__); fputc('\n', g_trace); fflush(g_trace); } } while (0)
-extern "C" void wrap_trace(int kind, int i, float n) { if (kind == 0) MONE_TRACE("host set p%d %.5f", i, n); }
+extern "C" void wrap_trace(int kind, int i, float n) { if (kind == 0) MONE_TRACE("host set p%d %.5f", i, n); else if (kind == 2) MONE_TRACE("UPDATE DISPLAY"); else if (kind == 3) MONE_TRACE("  report p%d %.4f", i, n); }
 #else
 #define MONE_TRACE(...) do {} while (0)
 #endif
@@ -296,9 +296,12 @@ struct MOne {
     double hlTime = 0;
     int rawAuthor = 50, rawBank = 50;              // the Library knobs: endless, put back to 50 after every move
     int encAcc[2] = {0, 0}; double encLast[2] = {0, 0};   // their click counting (author, bank)                // the author / bank knobs as MPC has them (0..99, loop round the list)
+    bool fxDirty = false; double fxDirtyAt = 0;   // FX values to report (see fx_mark)
+    char fxSnap[32][24] = {};                     // what MPC was last told for each kFxKeys entry
     int qSel[2] = {0, 0};                         // Q-Link section: [0] Play (Top / Bottom), [1] FX (FX 1 / FX 2)
     double qLast[3][8] = {};
-    int qHeld[3][8] = {};                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
+    float qSent[3][8] = {}, qRead[3][8] = {};      // the proxy value MPC last sent / last read back
+    double qSentAt[3][8] = {};                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
@@ -363,7 +366,11 @@ bool lib_load(MOne* m) {                          // the picked bank into libPro
 const uint8_t* stored_fx(const MOne* m) {         // the current sound's own effect block, as in ROM
     return m->mode ? src_combis(m) + m->combi * m1::kCombiLen + 11 : src_progs(m) + m->program * m1::kProgLen + 38;
 }
-void fx_mark(MOne* m) { m->changed |= ((1u << kFxKeyCount) - 1u) << 2; }
+// The FX page's values changed (a new sound, a reset). Not reported at once: a Q-Link or wheel picking sounds would
+// make MPC re-read ~26 values and rebuild its screen (the effect types are option lists) on every click, which made
+// the Q-Link screens flicker and the turning knob stall. mpc_engine_changed reports, 0.35 s after the last change,
+// only the values that differ from what MPC was last told.
+void fx_mark(MOne* m) { m->fxDirtyAt = now_s(); m->fxDirty = true; }
 // What the effects run: the FX page's block with the FX AMOUNT offset on the four balances.
 void fx_apply(MOne* m, bool rebuild) {
     m->fxCache[m->mode].idx = m->mode ? m->combi : m->program;
@@ -796,7 +803,8 @@ void q_step(MOne* m, const char* t, int dir, int mult) {
     set_param(m, t, out);
 }
 // MPC set a proxy (Q-Link) or a section selector; true if it was one
-bool q_set(MOne* m, const char* k, int iv) {
+bool q_set(MOne* m, const char* k, const char* v) {
+    const int iv = (int)lround(atof(v));
     for (int pg = 0; pg < 2; ++pg)
         if (!strcmp(k, kQSelKey[pg])) {
             const int s = clampi(iv, 0, 1);
@@ -810,17 +818,20 @@ bool q_set(MOne* m, const char* k, int iv) {
     int pg, kn; if (!q_key(k, &pg, &kn) || k[3]) return false;
     const char* t = q_target(m, pg, kn);
     if (!t) { q_push(m, k); return true; }
-    // The turn's direction is measured from the value MPC itself last held (what it sent, or read back from us), not
-    // from the target: while a sound loads MPC keeps sending from its own copy, and comparing with the target then read
-    // as a jump and the knob seemed to stop.
-    const int want = clampi(iv, 0, 99), held = m->qHeld[pg][kn], d = want - held;
-    m->qHeld[pg][kn] = want;
-    if (d == 0) return true;
-    if (d > 12 || d < -12) { q_push(m, k); return true; }  // not a turn (a catch-up, automation): just show it again
+    // A proxy is a 0..1 knob that MPC moves in small steps (a Q-Link event is ~1/128) along its own track: while it
+    // turns MPC keeps going from what it last sent and doesn't take our read-backs, so the direction is measured from its
+    // last value; after a pause (0.5 s) from what it last read back from us, which it then starts from.
+    const float want = (float)atof(v);
     const double now = now_s();
+    const float ref = now - m->qSentAt[pg][kn] < 0.5 ? m->qSent[pg][kn] : m->qRead[pg][kn];
+    const float d = want - ref;
+    m->qSent[pg][kn] = want; m->qSentAt[pg][kn] = now;
+    if (d < 0.001f && d > -0.001f) return true;
+    if (d > 0.12f || d < -0.12f) { MONE_TRACE("  q %s %.4f ref %.4f JUMP", k, want, ref); q_push(m, k); return true; }   // a jump (automation, a catch-up): show it again
     const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
     const int mult = !pick && now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
     m->qLast[pg][kn] = now;
+    MONE_TRACE("  q %s %.4f ref %.4f -> %s %+d x%d", k, want, ref, t, d > 0 ? 1 : -1, mult);
     q_step(m, t, d > 0 ? 1 : -1, mult);
     q_push(m, k); q_push(m, t);
     return true;
@@ -832,7 +843,7 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
     int pg, kn; if (!q_key(k, &pg, &kn)) return false;
     const char* t = q_target(m, pg, kn);
     const char* r = k + 3;
-    if (!*r) { const int v = t ? (int)lroundf(q_norm(m, t) * 99) : 0; m->qHeld[pg][kn] = v; *len = snprintf(buf, n, "%d", v); return true; }
+    if (!*r) { const float v = t ? q_norm(m, t) : 0.5f; m->qRead[pg][kn] = v; *len = snprintf(buf, n, "%.4f", v); return true; }
     if (!t) { *len = snprintf(buf, n, " "); return true; }
     const int i = pidx(t); if (i < 0) { *len = 0; return true; }
     const param_t& P = PARAMS[i];
@@ -865,9 +876,11 @@ void q_follow(MOne* m, const char* k) {
 void set_param_(void* i, const char* k, const char* v);
 void set_param(void* i, const char* k, const char* v) {
     MOne* m = static_cast<MOne*>(i);
-    if (q_set(m, k, (int)lround(atof(v)))) return;
+    if (q_set(m, k, v)) return;
     set_param_(i, k, v);
     q_follow(m, k);
+    for (int j = 0; j < kFxKeyCount; ++j)          // MPC set an FX value itself: that is what it now shows
+        if (!strcmp(k, kFxKeys[j])) { char b[64] = ""; get_param(m, k, b, sizeof b); snprintf(m->fxSnap[j], sizeof m->fxSnap[j], "%s", b); break; }
 }
 void set_param_(void* i, const char* k, const char* v) {
     MOne* m = static_cast<MOne*>(i);
@@ -1057,6 +1070,14 @@ extern "C" const mpc_engine_t* mpc_engine(void) { return &kEngine; }
 
 extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     MOne* m = static_cast<MOne*>(inst);
+    if (m->fxDirty && now_s() - m->fxDirtyAt > 0.35) {
+        m->fxDirty = false;
+        char b[64];
+        for (int i = 0; i < kFxKeyCount; ++i) {
+            b[0] = 0; get_param(m, kFxKeys[i], b, sizeof b);
+            if (strncmp(b, m->fxSnap[i], sizeof m->fxSnap[i] - 1)) { snprintf(m->fxSnap[i], sizeof m->fxSnap[i], "%s", b); m->changed |= 1u << (2 + i); }
+        }
+    }
     if (m->nPend > 0) { const int i = m->pend[0]; memmove(m->pend, m->pend + 1, sizeof(int) * (size_t)--m->nPend); snprintf(key, len, "%s", PARAMS[i].key); return 1; }
     if (m->changed & 1) { m->changed &= ~1u; snprintf(key, len, "program"); return 1; }
     if (m->changed & 2) { m->changed &= ~2u; snprintf(key, len, "combi"); return 1; }
