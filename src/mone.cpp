@@ -17,6 +17,7 @@ extern "C" {
 }
 #include "m1_engine/m1_engine.h"
 #include "m1_romload.h"
+#include "params.h"                                  // PARAMS (generated): ranges / options for the Q-Link proxies
 
 #include <math.h>
 #include <new>
@@ -281,6 +282,7 @@ const char* const kFxKeys[] = {"fx_route", "fx1_on", "fx2_on",
 constexpr int kFxKeyCount = (int)(sizeof kFxKeys / sizeof kFxKeys[0]);
 // MOne::changed: bit 0 program, bit 1 combi, bits 2..24 kFxKeys, then these.
 constexpr int kEncTicks = 4;                      // Q-Link events per Library step in a fast turn
+constexpr unsigned kChgPage = 1u << 31;          // the browser page (00-19 ...) followed the sound
 constexpr unsigned kChgLibSrc = 1u << 27, kChgLibAuthor = 1u << 28, kChgLibBank = 1u << 29, kChgSound = 1u << 30;
 static_assert(2 + sizeof kFxKeys / sizeof kFxKeys[0] <= 27, "MOne::changed bits");
 
@@ -294,6 +296,9 @@ struct MOne {
     double hlTime = 0;
     int rawAuthor = 50, rawBank = 50;              // the Library knobs: endless, put back to 50 after every move
     int encAcc[2] = {0, 0}; double encLast[2] = {0, 0};   // their click counting (author, bank)                // the author / bank knobs as MPC has them (0..99, loop round the list)
+    int qSel[2] = {0, 0};                         // Q-Link section: [0] Play (Top / Bottom), [1] FX (FX 1 / FX 2)
+    double qLast[2][8] = {};                      // last proxy move per knob (fast turn -> bigger steps)
+    int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
     uint8_t progs[m1::kPrograms * m1::kProgLen];
@@ -637,7 +642,13 @@ void lib_param_set(MOne* m, const char* r, int iv) {
     else if (m->libBank != b0) { if (!m->hlBank) m->hlReport |= 2; m->hlBank = 1; if (m->hlAuthor) { m->hlAuthor = 0; m->hlReport |= 1; } m->hlTime = now_s(); }
 }
 
+// The browser page follows the sound (Preset knob, arrows, mode switch), so the highlighted tile is always in view.
+void page_follow(MOne* m) {
+    const int pg = (m->mode ? m->combi : m->program) / 20;
+    if (pg != m->bank) { m->bank = pg; m->changed |= kChgPage; }
+}
 void select_sound(MOne* m) {
+    page_follow(m);
     memcpy(m->progs, src_progs(m), sizeof m->progs);
     memcpy(m->combis, src_combis(m), sizeof m->combis);
     if (m->noRom) return;                            // no engine without ROMs: the names are all there is
@@ -724,7 +735,131 @@ void midi(void* i, const uint8_t* msg, int len) {
     }
 }
 
+// ---- Q-Link sections (2026-11-14): the Force has 8 Q-Links; Play and FX have more controls. A tap on a section (Quick
+// Edit / Sound, Effect 1 / Effect 2) points the 8 proxy knobs pk1..8 (Play) / fk1..8 (FX) at it. A proxy is an endless
+// knob: it shows its target's name, value and position, and each Q-Link event steps the target (bigger steps in a fast
+// turn). The XL keeps its direct 16 Q-Links.
+const char* const kQTarget[2][2][8] = {
+    {{"cutoff", "eg_int", "attack", "decay", "sustain", "release", "vibrato", "fx_amt"},
+     {"volume", "sound", "rev_amt", "dly_amt", nullptr, nullptr, nullptr, nullptr}},
+    {{"fx1_p1", "fx1_p2", "fx1_p3", "fx1_p4", "fx1_p5", "fx1_p6", "fx1_p7", "fx1_p8"},
+     {"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"}}};
+const char* const kQSelKey[2] = {"q_play", "q_fx"};
+int pidx(const char* k) { for (int i = 0; i < (int)(sizeof PARAMS / sizeof PARAMS[0]); ++i) if (!strcmp(PARAMS[i].key, k)) return i; return -1; }
+void q_push(MOne* m, const char* k) {
+    const int i = pidx(k); if (i < 0) return;
+    for (int j = 0; j < m->nPend; ++j) if (m->pend[j] == i) return;
+    if (m->nPend < (int)(sizeof m->pend / sizeof m->pend[0])) m->pend[m->nPend++] = i;
+}
+// a proxy key -> {page, knob}, or false
+bool q_key(const char* k, int* pg, int* kn) {
+    if ((k[0] != 'p' && k[0] != 'f') || k[1] != 'k' || k[2] < '1' || k[2] > '8') return false;
+    *pg = k[0] == 'f'; *kn = k[2] - '1'; return true;
+}
+const char* q_target(const MOne* m, int pg, int kn) { return kQTarget[pg][m->qSel[pg]][kn]; }
+int get_param(void* i, const char* k, char* buf, int n);
+void set_param(void* i, const char* k, const char* v);
+float q_norm(MOne* m, const char* t) {                // a target's position, 0..1
+    const int i = pidx(t); if (i < 0) return 0;
+    char b[64] = ""; if (get_param(m, t, b, sizeof b) <= 0) return 0;
+    const param_t& P = PARAMS[i];
+    if (P.nopts > 1) {
+        int idx = -1; for (int j = 0; j < P.nopts; ++j) if (!strcasecmp(b, P.opts[j])) idx = j;
+        if (idx < 0) idx = atoi(b);
+        return clampi(idx, 0, P.nopts - 1) / (float)(P.nopts - 1);
+    }
+    if (P.max <= P.min) return 0;
+    const float v = ((float)atof(b) - P.min) / (P.max - P.min);
+    return v < 0 ? 0 : v > 1 ? 1 : v;
+}
+void q_step(MOne* m, const char* t, int dir, int mult) {
+    const int i = pidx(t); if (i < 0) return;
+    const param_t& P = PARAMS[i];
+    char b[64] = ""; get_param(m, t, b, sizeof b);
+    char out[32];
+    if (P.nopts > 1) {
+        int idx = -1; for (int j = 0; j < P.nopts; ++j) if (!strcasecmp(b, P.opts[j])) idx = j;
+        if (idx < 0) idx = atoi(b);
+        snprintf(out, sizeof out, "%d", clampi(idx + dir, 0, P.nopts - 1));
+    } else {
+        const bool whole = P.int_display || P.max - P.min > 20;
+        const float step = whole ? 1.0f : (P.max - P.min) / 60.0f;
+        float v = (float)atof(b) + dir * mult * step;
+        v = v < P.min ? P.min : v > P.max ? P.max : v;
+        if (whole) snprintf(out, sizeof out, "%d", (int)lroundf(v)); else snprintf(out, sizeof out, "%.2f", v);
+    }
+    set_param(m, t, out);
+}
+// MPC set a proxy (Q-Link) or a section selector; true if it was one
+bool q_set(MOne* m, const char* k, int iv) {
+    for (int pg = 0; pg < 2; ++pg)
+        if (!strcmp(k, kQSelKey[pg])) {
+            const int s = clampi(iv, 0, 1);
+            if (s != m->qSel[pg]) {
+                m->qSel[pg] = s; q_push(m, kQSelKey[pg]);
+                char pk[4] = {pg ? 'f' : 'p', 'k', '1', 0};
+                for (int j = 0; j < 8; ++j) { pk[2] = (char)('1' + j); q_push(m, pk); }
+            }
+            return true;
+        }
+    int pg, kn; if (!q_key(k, &pg, &kn) || k[3]) return false;
+    const char* t = q_target(m, pg, kn);
+    if (!t) { q_push(m, k); return true; }
+    const int raw = (int)lroundf(q_norm(m, t) * 99), want = clampi(iv, 0, 99), d = want - raw;
+    if (d == 0) return true;
+    if (d > 6 || d < -6) { q_push(m, k); return true; }   // not a turn (a catch-up, automation): just show it again
+    const double now = now_s();
+    const int mult = now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
+    m->qLast[pg][kn] = now;
+    q_step(m, t, d > 0 ? 1 : -1, mult);
+    q_push(m, k); q_push(m, t);
+    return true;
+}
+// MPC reads a proxy / selector; true if it was one (n written to *len)
+bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
+    for (int pg = 0; pg < 2; ++pg)
+        if (!strcmp(k, kQSelKey[pg])) { *len = snprintf(buf, n, "%s", pg ? (m->qSel[pg] ? "FX 2" : "FX 1") : (m->qSel[pg] ? "Bottom" : "Top")); return true; }
+    int pg, kn; if (!q_key(k, &pg, &kn)) return false;
+    const char* t = q_target(m, pg, kn);
+    const char* r = k + 3;
+    if (!*r) { *len = snprintf(buf, n, "%d", t ? (int)lroundf(q_norm(m, t) * 99) : 0); return true; }
+    if (!t) { *len = snprintf(buf, n, " "); return true; }
+    const int i = pidx(t); if (i < 0) { *len = 0; return true; }
+    const param_t& P = PARAMS[i];
+    char k2[40];
+    if (!strcmp(r, "_name")) {
+        snprintf(k2, sizeof k2, "%s_name", t);
+        if (P.dynamic_name && get_param(m, k2, buf, n) > 0) { *len = (int)strlen(buf); return true; }
+        *len = snprintf(buf, n, "%s", P.name); return true;
+    }
+    if (!strcmp(r, "_display")) {
+        snprintf(k2, sizeof k2, "%s_display", t);
+        if (P.dynamic_display && get_param(m, k2, buf, n) > 0) { *len = (int)strlen(buf); return true; }
+        char b[64] = ""; get_param(m, t, b, sizeof b);
+        if (P.nopts > 1 || !P.max) { *len = snprintf(buf, n, "%s", b); return true; }
+        const bool whole = P.int_display || P.max - P.min > 20;
+        *len = whole ? snprintf(buf, n, "%d%s%s", (int)lroundf((float)atof(b)), *P.unit ? " " : "", P.unit)
+                     : snprintf(buf, n, "%.1f%s%s", atof(b), *P.unit ? " " : "", P.unit);
+        return true;
+    }
+    *len = 0; return true;
+}
+// a target moved some other way (the screen, a preset): its proxy follows
+void q_follow(MOne* m, const char* k) {
+    for (int pg = 0; pg < 2; ++pg) for (int kn = 0; kn < 8; ++kn) {
+        const char* t = q_target(m, pg, kn);
+        if (t && !strcmp(t, k)) { char pk[4] = {pg ? 'f' : 'p', 'k', (char)('1' + kn), 0}; q_push(m, pk); }
+    }
+}
+
+void set_param_(void* i, const char* k, const char* v);
 void set_param(void* i, const char* k, const char* v) {
+    MOne* m = static_cast<MOne*>(i);
+    if (q_set(m, k, (int)lround(atof(v)))) return;
+    set_param_(i, k, v);
+    q_follow(m, k);
+}
+void set_param_(void* i, const char* k, const char* v) {
     MOne* m = static_cast<MOne*>(i);
     const int iv = (int)lround(atof(v));
     if (m->noRom) {                               // no ROMs: keep the settings (knobs, saved projects), make no sound
@@ -740,6 +875,7 @@ void set_param(void* i, const char* k, const char* v) {
         else if (!strcmp(k, "volume")) m->volDb = (float)atof(v);
         else if (!strncmp(k, "lib_", 4)) lib_param_set(m, k + 4, iv);    // the Library browses without ROMs too
         else for (int j = 0; j < kMacros; ++j) if (!strcmp(k, kMacroKeys[j])) m->macro[j] = clampi(iv, -50, 50);
+        if (!strcmp(k, "sound") || !strcmp(k, "prev") || !strcmp(k, "next") || !strcmp(k, "mode")) page_follow(m);
         return;
     }
     if (!strcmp(k, "mode")) {
@@ -786,6 +922,7 @@ void set_param(void* i, const char* k, const char* v) {
 
 int get_param(void* i, const char* k, char* buf, int n) {
     MOne* m = static_cast<MOne*>(i);
+    { int len; if (q_get(m, k, buf, n, &len)) return len; }
     char nm[16];
     if (m->noRom) {
         if (!strcmp(k, "sound_display")) {
@@ -910,9 +1047,11 @@ extern "C" const mpc_engine_t* mpc_engine(void) { return &kEngine; }
 
 extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     MOne* m = static_cast<MOne*>(inst);
+    if (m->nPend > 0) { const int i = m->pend[0]; memmove(m->pend, m->pend + 1, sizeof(int) * (size_t)--m->nPend); snprintf(key, len, "%s", PARAMS[i].key); return 1; }
     if (m->changed & 1) { m->changed &= ~1u; snprintf(key, len, "program"); return 1; }
     if (m->changed & 2) { m->changed &= ~2u; snprintf(key, len, "combi"); return 1; }
     if (m->changed & kChgSound) { m->changed &= ~kChgSound; snprintf(key, len, "sound"); return 1; }
+    if (m->changed & kChgPage) { m->changed &= ~kChgPage; snprintf(key, len, "bank"); return 1; }
     if (m->changed & kChgLibSrc) { m->changed &= ~kChgLibSrc; snprintf(key, len, "lib_src"); return 1; }
     if (m->changed & kChgLibAuthor) { m->changed &= ~kChgLibAuthor; snprintf(key, len, "lib_author"); return 1; }
     if (m->changed & kChgLibBank) { m->changed &= ~kChgLibBank; snprintf(key, len, "lib_bank"); return 1; }

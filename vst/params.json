@@ -752,6 +752,218 @@
    "max": 255,
    "default": 0,
    "display": "int"
+  },
+  {
+   "key": "q_play",
+   "name": "Q-Links Play",
+   "options": [
+    "Top",
+    "Bottom"
+   ],
+   "default": "Top",
+   "live": true
+  },
+  {
+   "key": "q_fx",
+   "name": "Q-Links FX",
+   "options": [
+    "FX 1",
+    "FX 2"
+   ],
+   "default": "FX 1",
+   "live": true
+  },
+  {
+   "key": "pk1",
+   "name": "Play Q1",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "pk2",
+   "name": "Play Q2",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "pk3",
+   "name": "Play Q3",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "pk4",
+   "name": "Play Q4",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "pk5",
+   "name": "Play Q5",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "pk6",
+   "name": "Play Q6",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "pk7",
+   "name": "Play Q7",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "pk8",
+   "name": "Play Q8",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk1",
+   "name": "FX Q1",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk2",
+   "name": "FX Q2",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk3",
+   "name": "FX Q3",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk4",
+   "name": "FX Q4",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk5",
+   "name": "FX Q5",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk6",
+   "name": "FX Q6",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk7",
+   "name": "FX Q7",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fk8",
+   "name": "FX Q8",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
   }
  ]
 }
