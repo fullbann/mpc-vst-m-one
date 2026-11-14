@@ -301,7 +301,8 @@ struct MOne {
     int qSel[2] = {0, 0};                         // Q-Link section: [0] Play (Top / Bottom), [1] FX (FX 1 / FX 2)
     double qLast[3][8] = {};
     float qSent[3][8] = {}, qRead[3][8] = {};      // the proxy value MPC last sent / last read back
-    double qSentAt[3][8] = {};                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
+    double qSentAt[3][8] = {};
+    double lastPick = 0;                          // when a Q-Link last picked a sound (program / combi reports wait)                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
@@ -829,6 +830,7 @@ bool q_set(MOne* m, const char* k, const char* v) {
     if (d < 0.001f && d > -0.001f) return true;
     if (d > 0.12f || d < -0.12f) { MONE_TRACE("  q %s %.4f ref %.4f JUMP", k, want, ref); q_push(m, k); return true; }   // a jump (automation, a catch-up): show it again
     const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
+    if (pick) m->lastPick = now;
     const int mult = !pick && now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
     m->qLast[pg][kn] = now;
     MONE_TRACE("  q %s %.4f ref %.4f -> %s %+d x%d", k, want, ref, t, d > 0 ? 1 : -1, mult);
@@ -1079,8 +1081,11 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
         }
     }
     if (m->nPend > 0) { const int i = m->pend[0]; memmove(m->pend, m->pend + 1, sizeof(int) * (size_t)--m->nPend); snprintf(key, len, "%s", PARAMS[i].key); return 1; }
-    if (m->changed & 1) { m->changed &= ~1u; snprintf(key, len, "program"); return 1; }
-    if (m->changed & 2) { m->changed &= ~2u; snprintf(key, len, "combi"); return 1; }
+    // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
+    // click as a preset change (screen and Q-Link screens rebuilt, the knob dropped). Told once the knob has stopped.
+    const bool picking = now_s() - m->lastPick < 0.6;
+    if ((m->changed & 1) && !picking) { m->changed &= ~1u; snprintf(key, len, "program"); return 1; }
+    if ((m->changed & 2) && !picking) { m->changed &= ~2u; snprintf(key, len, "combi"); return 1; }
     if (m->changed & kChgSound) { m->changed &= ~kChgSound; snprintf(key, len, "sound"); return 1; }
     if (m->changed & kChgPage) { m->changed &= ~kChgPage; snprintf(key, len, "bank"); return 1; }
     if (m->changed & kChgLibSrc) { m->changed &= ~kChgLibSrc; snprintf(key, len, "lib_src"); return 1; }
