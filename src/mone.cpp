@@ -540,11 +540,12 @@ void lib_param_set(MOne* m, const char* r, int iv) {
     // Touching author or bank (knob, wheel or arrows) while the source is Factory switches to the Library: in Factory
     // they did nothing you could see or hear.
     // Not while the plugin is being set up (MPC restoring a project or its defaults), and only for a real change.
-    if (m->libSrc == 0 && now_s() - m->bornS > 3.0) {
-        const bool knob = !strcmp(r, "author") || !strcmp(r, "bank");
-        const int cur = !strcmp(r, "author") ? m->rawAuthor : m->rawBank;
-        if ((knob && clampi(iv, 0, 99) != cur) || (!knob && iv)) { m->libSrc = 1; lib_changed(m, kChgLibSrc); }
-    }
+    // Speed: the wrapper counts 3 Q-Link events or wheel clicks per step for these (vst.json qlink_ticks / nudge_pct).
+    // While the source is Factory, the first touch of author or bank (or their arrows) only switches to the Library.
+    // Not while MPC sets the plugin up (project restore, defaults).
+    const bool knob = !strcmp(r, "author") || !strcmp(r, "bank");
+    if (knob && clampi(iv, 0, 99) == (!strcmp(r, "author") ? m->rawAuthor : m->rawBank)) return;
+    if (m->libSrc == 0 && (knob || iv) && now_s() - m->bornS > 3.0) { m->libSrc = 1; lib_changed(m, kChgLibSrc); return; }
     // The knobs (Q-Link, data wheel) step like the sound selector: the value runs 0..99 and loops round the list, and a
     // knob's own move is not echoed back to MPC (an echo mid-turn lost or doubled clicks). Arrows report both.
     if (!strcmp(r, "author")) {
