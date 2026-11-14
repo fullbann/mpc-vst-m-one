@@ -157,7 +157,8 @@
     "60-79",
     "80-99"
    ],
-   "default": "00-19"
+   "default": "00-19",
+   "qlink_ticks": 10
   },
   {
    "key": "sl_1",
@@ -669,9 +670,8 @@
    "name": "Library Author",
    "min": 0,
    "max": 99,
-   "qlink_ticks": 5,
    "nudge_pct": 5,
-   "default": 0,
+   "default": 50,
    "display": "int",
    "dynamic_display": true,
    "live": true
@@ -697,9 +697,8 @@
    "name": "Library Bank",
    "min": 0,
    "max": 99,
-   "qlink_ticks": 5,
    "nudge_pct": 5,
-   "default": 0,
+   "default": 50,
    "display": "int",
    "dynamic_display": true,
    "live": true
@@ -737,6 +736,22 @@
     "On"
    ],
    "default": "Off"
+  },
+  {
+   "key": "lib_aidx",
+   "name": "Lib Author No",
+   "min": 0,
+   "max": 255,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "lib_bidx",
+   "name": "Lib Bank No",
+   "min": 0,
+   "max": 255,
+   "default": 0,
+   "display": "int"
   }
  ]
 }

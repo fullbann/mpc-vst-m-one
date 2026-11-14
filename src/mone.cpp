@@ -153,6 +153,24 @@ void lib_scan() {
     }
 }
 void lib_init() { pthread_once(&g_libOnce, lib_scan); }
+#ifdef MONE_TRACE_FILE
+// Test builds only: a log of every value MPC sets (wrapper WRAP_TRACE) and what the Library does with it.
+FILE* g_trace = nullptr;
+void trace_open() {
+    if (g_trace) return;
+    char dir[512]; Dl_info di;
+    if (!dladdr((void*)&lib_anchor, &di) || !di.dli_fname) return;
+    snprintf(dir, sizeof dir, "%s", di.dli_fname);
+    for (int up = 0; up < 2; ++up) { char* sl = strrchr(dir, '/'); if (sl) *sl = 0; char t[600]; snprintf(t, sizeof t, "%s/plugin.json", dir); if (!access(t, F_OK)) break; }
+    char p[600]; snprintf(p, sizeof p, "%s/mone-trace.txt", dir);
+    g_trace = fopen(p, "a");
+}
+#define MONE_TRACE(...) do { trace_open(); if (g_trace) { struct timespec t_; clock_gettime(CLOCK_MONOTONIC, &t_); \
+    fprintf(g_trace, "%ld.%03ld ", (long)t_.tv_sec, t_.tv_nsec / 1000000); fprintf(g_trace, __VA_ARGS__); fputc('\n', g_trace); fflush(g_trace); } } while (0)
+extern "C" void wrap_trace(int kind, int i, float n) { if (kind == 0) MONE_TRACE("host set p%d %.5f", i, n); }
+#else
+#define MONE_TRACE(...) do {} while (0)
+#endif
 double now_s() { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec + t.tv_nsec * 1e-9; }
 
 // ---------------------------------------------------------------- the user's ROMs (Content/ROMs)
@@ -181,6 +199,16 @@ void rom_scan() {
     snprintf(roms, sizeof roms, "%s/Content/ROMs", dir);
     g_rom = m1load::load(roms, g_romErr, sizeof g_romErr);
     if (!g_rom) fprintf(stderr, "M-One: no ROMs (%s): %s\n", roms, g_romErr);
+#ifdef MONE_FAKEROM
+    // Test builds only (virtual MPC): with MONE_FAKEROM=1 in the environment and no ROMs, run the full engine on
+    // blank sound data, so the Library / program-load path can be tested without anyone's ROMs. Silent.
+    if (!g_rom && getenv("MONE_FAKEROM")) {
+        m1load::Rom* r = (m1load::Rom*)calloc(1, sizeof(m1load::Rom));
+        if (r) { r->pcmWords = 1u << 21; r->pcm = (int16_t*)calloc(r->pcmWords + 64, sizeof(int16_t));
+                 r->nSplits = 1; r->nDrums = 1; for (int i = 0; i < 256; ++i) r->velCurve[i] = (uint16_t)(i * 256);
+                 if (r->pcm) { g_rom = r; fprintf(stderr, "M-One: MONE_FAKEROM blank sound data\n"); } else free(r); }
+    }
+#endif
 }
 void rom_init() { pthread_once(&g_romOnce, rom_scan); }
 const uint8_t g_zero[m1::kPrograms * m1::kProgLen] = {0};   // stands in for the factory sounds without ROMs
@@ -252,6 +280,7 @@ const char* const kFxKeys[] = {"fx_route", "fx1_on", "fx2_on",
     "rev_amt", "dly_amt"};
 constexpr int kFxKeyCount = (int)(sizeof kFxKeys / sizeof kFxKeys[0]);
 // MOne::changed: bit 0 program, bit 1 combi, bits 2..24 kFxKeys, then these.
+constexpr int kEncTicks = 4;                      // Q-Link events per Library step in a fast turn
 constexpr unsigned kChgLibSrc = 1u << 27, kChgLibAuthor = 1u << 28, kChgLibBank = 1u << 29, kChgSound = 1u << 30;
 static_assert(2 + sizeof kFxKeys / sizeof kFxKeys[0] <= 27, "MOne::changed bits");
 
@@ -261,9 +290,10 @@ struct MOne {
     int16_t fxMem[65536];
     uint8_t kernel[32768];
     bool noRom = false;                           // no ROMs: silent, the display says so
-    int hlAuthor = 0, hlBank = 0, hlReport = 0;    // the outline lit on the author / bank box while it changes
+    int hlAuthor = 0, hlBank = 0, hlReport = 0;    // hlReport bits: 1 author outline, 2 bank outline, 4 lib_aidx, 8 lib_bidx    // the outline lit on the author / bank box while it changes
     double hlTime = 0;
-    int rawAuthor = 0, rawBank = 0;                // the author / bank knobs as MPC has them (0..99, loop round the list)
+    int rawAuthor = 50, rawBank = 50;              // the Library knobs: endless, put back to 50 after every move
+    int encAcc[2] = {0, 0}; double encLast[2] = {0, 0};   // their click counting (author, bank)                // the author / bank knobs as MPC has them (0..99, loop round the list)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
     uint8_t progs[m1::kPrograms * m1::kProgLen];
@@ -542,43 +572,68 @@ void lib_param_set_(MOne* m, const char* r, int iv) {
     // Touching author or bank (knob, wheel or arrows) while the source is Factory switches to the Library: in Factory
     // they did nothing you could see or hear.
     // Not while the plugin is being set up (MPC restoring a project or its defaults), and only for a real change.
-    // Speed: the wrapper counts 3 Q-Link events or wheel clicks per step for these (vst.json qlink_ticks / nudge_pct).
-    // While the source is Factory, the first touch of author or bank (or their arrows) only switches to the Library.
-    // Not while MPC sets the plugin up (project restore, defaults).
+    // The author / bank knobs are endless encoders: only the direction of a move counts, and the value goes back to 50
+    // after each one (reported, so MPC reads it back and never runs ahead). A slow click (data wheel, a careful
+    // Q-Link) moves one item; in a fast Q-Link turn it takes kEncTicks events. A jump (MPC catching up, automation)
+    // is ignored. The picked author and bank are kept in lib_aidx / lib_bidx, which projects save and restore.
+    if (!strcmp(r, "aidx") || !strcmp(r, "bidx")) {
+        const int v = clampi(iv, 0, 255);
+        int& cur = r[0] == 'a' ? m->libAuthor : m->libBank;
+        if (v != cur && g_nAuth > 0) {
+            if (r[0] == 'a') { m->libAuthor = clampi(v, 0, na - 1); }
+            else m->libBank = clampi(v, 0, g_auth[clampi(m->libAuthor, 0, g_nAuth - 1)].count - 1);
+            lib_changed(m, 0);
+        }
+        return;
+    }
     const bool knob = !strcmp(r, "author") || !strcmp(r, "bank");
-    if (knob && clampi(iv, 0, 99) == (!strcmp(r, "author") ? m->rawAuthor : m->rawBank)) return;
-    if (m->libSrc == 0 && (knob || iv) && now_s() - m->bornS > 3.0) { m->libSrc = 1; lib_changed(m, kChgLibSrc); return; }
-    // The knobs (Q-Link, data wheel) step like the sound selector: the value runs 0..99 and loops round the list, and a
-    // knob's own move is not echoed back to MPC (an echo mid-turn lost or doubled clicks). Arrows report both.
-    if (!strcmp(r, "author")) {
-        m->rawAuthor = clampi(iv, 0, 99);
-        const int a = m->rawAuthor % na;
-        if (a != m->libAuthor) { m->libAuthor = a; m->libBank = 0; m->rawBank = 0; lib_changed(m, kChgLibBank); }
+    if (knob) {
+        const int k = r[0] == 'a' ? 0 : 1;
+        int& raw = k ? m->rawBank : m->rawAuthor;
+        const int want = clampi(iv, 0, 99), d = want - raw;
+        if (d == 0) return;
+        raw = 50; m->changed |= k ? kChgLibBank : kChgLibAuthor;          // back to the middle
+        if (now_s() - m->bornS <= 3.0 || d > 6 || d < -6) return;           // set-up, or a jump
+        if (m->libSrc == 0) { m->libSrc = 1; m->encLast[k] = now_s(); m->encAcc[k] = 0; lib_changed(m, kChgLibSrc); return; }   // first touch: just switch (and a quick 2nd event is part of it)
+        const int dir = d > 0 ? 1 : -1;
+        const double now = now_s();
+        int step = 0;
+        if (now - m->encLast[k] > 0.3) { m->encAcc[k] = 0; step = dir; }
+        else {
+            if (m->encAcc[k] * dir < 0) m->encAcc[k] = 0;
+            m->encAcc[k] += dir;
+            if (m->encAcc[k] >= kEncTicks || m->encAcc[k] <= -kEncTicks) { step = dir; m->encAcc[k] = 0; }
+        }
+        m->encLast[k] = now;
+        if (!step) return;
+        if (k == 0) { m->libAuthor = (m->libAuthor + step + na) % na; m->libBank = 0; { m->hlReport |= 12; lib_changed(m, 0); } }
+        else { m->libBank = (m->libBank + step + nb) % nb; { m->hlReport |= 8; lib_changed(m, 0); } }
+        return;
+    }
+    if (m->libSrc == 0 && iv && now_s() - m->bornS > 3.0) { m->libSrc = 1; lib_changed(m, kChgLibSrc); return; }   // an arrow
+    if (false) {
     } else if (!strcmp(r, "author_prev") || !strcmp(r, "author_next")) {
         if (!iv) return;
         m->libAuthor = (m->libAuthor + (r[7] == 'n' ? 1 : -1) + na) % na; m->libBank = 0;
-        m->rawAuthor = m->libAuthor; m->rawBank = 0;
-        lib_changed(m, kChgLibAuthor | kChgLibBank);
-    } else if (!strcmp(r, "bank")) {
-        m->rawBank = clampi(iv, 0, 99);
-        const int b = m->rawBank % nb;
-        if (b != m->libBank) { m->libBank = b; lib_changed(m, 0); }
+        { m->hlReport |= 12; lib_changed(m, 0); }
     } else if (!strcmp(r, "bank_prev") || !strcmp(r, "bank_next")) {   // runs on through the authors
         if (!iv) return;
         if (r[5] == 'n') { if (++m->libBank >= nb) { m->libBank = 0; m->libAuthor = (m->libAuthor + 1) % na; } }
         else if (--m->libBank < 0) { m->libAuthor = (m->libAuthor - 1 + na) % na;
                                      m->libBank = g_nAuth > 0 ? g_auth[m->libAuthor].count - 1 : 0; }
-        m->rawAuthor = m->libAuthor; m->rawBank = m->libBank;
-        lib_changed(m, kChgLibAuthor | kChgLibBank);
+        { m->hlReport |= 12; lib_changed(m, 0); }
     }
 }
 
 // Lights the outline of the box that changed (author or bank) for 1.5 s; mpc_engine_changed reports it and puts it out.
 void lib_param_set(MOne* m, const char* r, int iv) {
     if (strstr(r, "_hl")) return;                    // the outlines are the plugin's own, MPC only shows them
+    MONE_TRACE("set lib_%s %d", r, iv);
     const int a0 = m->libAuthor, b0 = m->libBank;
     lib_param_set_(m, r, iv);
+    MONE_TRACE("  -> src %d author %d bank %d raw %d/%d acc %d/%d", m->libSrc, m->libAuthor, m->libBank, m->rawAuthor, m->rawBank, m->encAcc[0], m->encAcc[1]);
     if (m->libSrc != 1) return;
+    if (m->libAuthor != a0) m->changed |= kChgLibAuthor | kChgLibBank;   // a new author: its bank box (name, n/N) at once
     if (m->libAuthor != a0) { if (!m->hlAuthor) m->hlReport |= 1; m->hlAuthor = 1; if (m->hlBank) { m->hlBank = 0; m->hlReport |= 2; } m->hlTime = now_s(); }
     else if (m->libBank != b0) { if (!m->hlBank) m->hlReport |= 2; m->hlBank = 1; if (m->hlAuthor) { m->hlAuthor = 0; m->hlReport |= 1; } m->hlTime = now_s(); }
 }
@@ -586,6 +641,7 @@ void lib_param_set(MOne* m, const char* r, int iv) {
 void select_sound(MOne* m) {
     memcpy(m->progs, src_progs(m), sizeof m->progs);
     memcpy(m->combis, src_combis(m), sizeof m->combis);
+    if (m->noRom) return;                            // no engine without ROMs: the names are all there is
     m->eng.setKits(src_kits(m));
     if (m->mode) m->eng.selectCombi(m->combi); else m->eng.selectProgram(m->program);
     if (m->fxFollow) {
@@ -683,6 +739,7 @@ void set_param(void* i, const char* k, const char* v) {
         else if (!strcmp(k, "bank")) m->bank = clampi(iv, 0, 4);
         else if (!strncmp(k, "sl_", 3)) cur = m->bank * 20 + clampi(atoi(k + 3), 1, 20) - 1;
         else if (!strcmp(k, "volume")) m->volDb = (float)atof(v);
+        else if (!strncmp(k, "lib_", 4)) lib_param_set(m, k + 4, iv);    // the Library browses without ROMs too
         else for (int j = 0; j < kMacros; ++j) if (!strcmp(k, kMacroKeys[j])) m->macro[j] = clampi(iv, -50, 50);
         return;
     }
@@ -732,7 +789,11 @@ int get_param(void* i, const char* k, char* buf, int n) {
     MOne* m = static_cast<MOne*>(i);
     char nm[16];
     if (m->noRom) {
-        if (!strcmp(k, "sound_display")) return snprintf(buf, n, "NO M1 ROMS");
+        if (!strcmp(k, "sound_display")) {
+            if (!use_lib(m)) return snprintf(buf, n, "NO M1 ROMS");
+            if (m->mode) name_of(src_combis(m) + m->combi * m1::kCombiLen, nm); else name_of(src_progs(m) + m->program * m1::kProgLen, nm);
+            return snprintf(buf, n, "%02d %s (no ROMs)", m->mode ? m->combi : m->program, nm);
+        }
         if (!strcmp(k, "program_display") || !strcmp(k, "combi_display")) return snprintf(buf, n, "Put them in Content/ROMs");
     }
     if (!strcmp(k, "mode")) return snprintf(buf, n, "%s", m->mode ? "Combi" : "Program");
@@ -771,6 +832,8 @@ int get_param(void* i, const char* k, char* buf, int n) {
         const char* r = k + 4;
         const bool lib = m->libSrc == 1;
         if (!strcmp(r, "src")) return snprintf(buf, n, "%s", lib ? "Library" : "Factory");
+        if (!strcmp(r, "aidx")) return snprintf(buf, n, "%d", m->libAuthor);
+        if (!strcmp(r, "bidx")) return snprintf(buf, n, "%d", m->libBank);
         if (!strcmp(r, "author_hl")) return snprintf(buf, n, "%s", m->hlAuthor ? "On" : "Off");
         if (!strcmp(r, "bank_hl")) return snprintf(buf, n, "%s", m->hlBank ? "On" : "Off");
         if (!strcmp(r, "author")) return snprintf(buf, n, "%d", m->rawAuthor);
@@ -861,6 +924,8 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     }
     if (m->hlReport & 1) { m->hlReport &= ~1; snprintf(key, len, "lib_author_hl"); return 1; }
     if (m->hlReport & 2) { m->hlReport &= ~2; snprintf(key, len, "lib_bank_hl"); return 1; }
+    if (m->hlReport & 4) { m->hlReport &= ~4; snprintf(key, len, "lib_aidx"); return 1; }
+    if (m->hlReport & 8) { m->hlReport &= ~8; snprintf(key, len, "lib_bidx"); return 1; }
     for (int i = 0; i < kFxKeyCount; ++i)
         if (m->changed & (1u << (2 + i))) { m->changed &= ~(1u << (2 + i)); snprintf(key, len, "%s", kFxKeys[i]); return 1; }
     return 0;
