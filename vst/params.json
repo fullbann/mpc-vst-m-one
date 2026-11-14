@@ -1,0 +1,720 @@
+{
+ "name": "M-One",
+ "params": [
+  {
+   "key": "mode",
+   "name": "Mode",
+   "options": [
+    "Program",
+    "Combi"
+   ],
+   "default": "Program"
+  },
+  {
+   "key": "program",
+   "name": "Program",
+   "min": 0,
+   "max": 99,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "combi",
+   "name": "Combi",
+   "min": 0,
+   "max": 99,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "prev",
+   "name": "Prev",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "next",
+   "name": "Next",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "cutoff",
+   "name": "Cutoff",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "eg_int",
+   "name": "Filter EG",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "attack",
+   "name": "Attack",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "decay",
+   "name": "Decay",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "sustain",
+   "name": "Sustain",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "release",
+   "name": "Release",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "vibrato",
+   "name": "Vibrato",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "fx_amt",
+   "name": "FX Amount",
+   "min": -50,
+   "max": 50,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "volume",
+   "name": "Volume",
+   "min": -24,
+   "max": 6,
+   "default": -4,
+   "unit": "dB"
+  },
+  {
+   "key": "fx",
+   "name": "Effects",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": "On"
+  },
+  {
+   "key": "name",
+   "name": "Sound",
+   "display": "string",
+   "min": 0,
+   "max": 0
+  },
+  {
+   "key": "number",
+   "name": "Number",
+   "display": "string",
+   "min": 0,
+   "max": 0
+  },
+  {
+   "key": "bank",
+   "name": "Bank",
+   "options": [
+    "00-19",
+    "20-39",
+    "40-59",
+    "60-79",
+    "80-99"
+   ],
+   "default": "00-19"
+  },
+  {
+   "key": "sl_1",
+   "name": "Slot 1",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_2",
+   "name": "Slot 2",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_3",
+   "name": "Slot 3",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_4",
+   "name": "Slot 4",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_5",
+   "name": "Slot 5",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_6",
+   "name": "Slot 6",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_7",
+   "name": "Slot 7",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_8",
+   "name": "Slot 8",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_9",
+   "name": "Slot 9",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_10",
+   "name": "Slot 10",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_11",
+   "name": "Slot 11",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_12",
+   "name": "Slot 12",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_13",
+   "name": "Slot 13",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_14",
+   "name": "Slot 14",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_15",
+   "name": "Slot 15",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_16",
+   "name": "Slot 16",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_17",
+   "name": "Slot 17",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_18",
+   "name": "Slot 18",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_19",
+   "name": "Slot 19",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "sl_20",
+   "name": "Slot 20",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "display": "string"
+  },
+  {
+   "key": "fx_follow",
+   "name": "Preset FX",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": "On"
+  },
+  {
+   "key": "fx_reset",
+   "name": "FX Reset",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "fx_route",
+   "name": "FX Routing",
+   "options": [
+    "Parallel",
+    "Serial"
+   ],
+   "default": "Parallel",
+   "live": true
+  },
+  {
+   "key": "fx1_on",
+   "name": "FX1 On",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": "On",
+   "live": true
+  },
+  {
+   "key": "fx1_cat",
+   "name": "FX1 Group",
+   "options": [
+    "Reverb",
+    "Early",
+    "Delay",
+    "Mod",
+    "Drive",
+    "EQ",
+    "Dual"
+   ],
+   "default": "Reverb",
+   "live": true
+  },
+  {
+   "key": "fx1_type",
+   "name": "FX1 Type",
+   "min": 0,
+   "max": 32,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_type_prev",
+   "name": "FX1 Prev",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "fx1_type_next",
+   "name": "FX1 Next",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "fx1_p1",
+   "name": "FX1 1",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_p2",
+   "name": "FX1 2",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_p3",
+   "name": "FX1 3",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_p4",
+   "name": "FX1 4",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_p5",
+   "name": "FX1 5",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_p6",
+   "name": "FX1 6",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_p7",
+   "name": "FX1 7",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx1_p8",
+   "name": "FX1 8",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_on",
+   "name": "FX2 On",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": "On",
+   "live": true
+  },
+  {
+   "key": "fx2_cat",
+   "name": "FX2 Group",
+   "options": [
+    "Reverb",
+    "Early",
+    "Delay",
+    "Mod",
+    "Drive",
+    "EQ",
+    "Dual"
+   ],
+   "default": "Reverb",
+   "live": true
+  },
+  {
+   "key": "fx2_type",
+   "name": "FX2 Type",
+   "min": 0,
+   "max": 32,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_type_prev",
+   "name": "FX2 Prev",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "fx2_type_next",
+   "name": "FX2 Next",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "fx2_p1",
+   "name": "FX2 1",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_p2",
+   "name": "FX2 2",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_p3",
+   "name": "FX2 3",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_p4",
+   "name": "FX2 4",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_p5",
+   "name": "FX2 5",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_p6",
+   "name": "FX2 6",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_p7",
+   "name": "FX2 7",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "fx2_p8",
+   "name": "FX2 8",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "sound",
+   "name": "Sound Select",
+   "min": 0,
+   "max": 99,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "rev_amt",
+   "name": "Reverb",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "dly_amt",
+   "name": "Delay",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "lib_src",
+   "name": "Source",
+   "options": [
+    "Factory",
+    "Library"
+   ],
+   "default": "Factory",
+   "live": true
+  },
+  {
+   "key": "lib_author",
+   "name": "Library Author",
+   "min": 0,
+   "max": 63,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "lib_author_prev",
+   "name": "Author Prev",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "lib_author_next",
+   "name": "Author Next",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "lib_bank",
+   "name": "Library Bank",
+   "min": 0,
+   "max": 255,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "lib_bank_prev",
+   "name": "Bank Prev",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  },
+  {
+   "key": "lib_bank_next",
+   "name": "Bank Next",
+   "min": 0,
+   "max": 1,
+   "default": 0,
+   "momentary": true
+  }
+ ]
+}

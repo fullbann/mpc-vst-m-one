@@ -1,0 +1,29 @@
+/* Fullban M-One: dark slate + Fullban aqua, an M1-style yellow-green backlit display. Colours/effects only:
+ * positions and sizes stay the layout's (MPC places its live controls on them). */
+:root {
+  --title-size: 17px;
+  --label-size: 14px;
+  --seg-size: 13px;
+  --button-size: 13px;
+  --radius: 10px;
+  --sheen: 0.07;
+  --shadow: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.6));
+}
+.frame-border { fill: rgba(255, 255, 255, 0.022); stroke: #2b323e; stroke-width: 1.2; rx: 14px; }
+.frame-rule { stroke: #2b323e; }
+.frame-title { fill: #2fd2c6; letter-spacing: 0.22em; font-weight: 700; }
+/* the backlit displays are drawn in the art (art/make_art.py lcd()); steppers only add arrows and live text */
+.box { fill: none; stroke: none; filter: none; }
+.arrow-bg { fill: none; stroke: none; }
+.arrow { fill: #dcd4ff; }
+.box-label { fill: #8a95a5; }
+/* buttons and option segments */
+.button-bg { stroke: #3a4352; stroke-width: 1.2; }
+.button-tx { letter-spacing: 0.18em; font-weight: 700; }
+.seg-tx { letter-spacing: 0.10em; font-weight: 700; }
+/* knobs: prophet look with an aqua value arc */
+.knob-arc { stroke: #2fd2c6; filter: drop-shadow(0 0 3px rgba(47, 210, 198, 0.55)); }
+.knob-track { stroke: #2b323e; }
+/* browser tiles */
+.tile { rx: 10px; }
+.tile-border { stroke: #2fd2c6; rx: 10px; }

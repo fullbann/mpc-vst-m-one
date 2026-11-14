@@ -1,0 +1,7 @@
+# ROM-derived data and anything built from it: never commit
+build/
+vst/build/
+roms/
+*.bin
+*.syx
+release/
