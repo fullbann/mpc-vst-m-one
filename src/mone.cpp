@@ -297,7 +297,8 @@ struct MOne {
     int rawAuthor = 50, rawBank = 50;              // the Library knobs: endless, put back to 50 after every move
     int encAcc[2] = {0, 0}; double encLast[2] = {0, 0};   // their click counting (author, bank)                // the author / bank knobs as MPC has them (0..99, loop round the list)
     int qSel[2] = {0, 0};                         // Q-Link section: [0] Play (Top / Bottom), [1] FX (FX 1 / FX 2)
-    double qLast[2][8] = {};                      // last proxy move per knob (fast turn -> bigger steps)
+    double qLast[3][8] = {};
+    int qHeld[3][8] = {};                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
     uint8_t global[21];
@@ -739,11 +740,13 @@ void midi(void* i, const uint8_t* msg, int len) {
 // Edit / Sound, Effect 1 / Effect 2) points the 8 proxy knobs pk1..8 (Play) / fk1..8 (FX) at it. A proxy is an endless
 // knob: it shows its target's name, value and position, and each Q-Link event steps the target (bigger steps in a fast
 // turn). The XL keeps its direct 16 Q-Links.
-const char* const kQTarget[2][2][8] = {
+const char* const kQTarget[3][2][8] = {
     {{"cutoff", "eg_int", "attack", "decay", "sustain", "release", "vibrato", "fx_amt"},
      {"volume", "sound", "rev_amt", "dly_amt", nullptr, nullptr, nullptr, nullptr}},
     {{"fx1_p1", "fx1_p2", "fx1_p3", "fx1_p4", "fx1_p5", "fx1_p6", "fx1_p7", "fx1_p8"},
-     {"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"}}};
+     {"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"}},
+    {{"sound", nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},          // Browse: one Preset knob
+     {"sound", nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr}}};
 const char* const kQSelKey[2] = {"q_play", "q_fx"};
 int pidx(const char* k) { for (int i = 0; i < (int)(sizeof PARAMS / sizeof PARAMS[0]); ++i) if (!strcmp(PARAMS[i].key, k)) return i; return -1; }
 void q_push(MOne* m, const char* k) {
@@ -752,11 +755,13 @@ void q_push(MOne* m, const char* k) {
     if (m->nPend < (int)(sizeof m->pend / sizeof m->pend[0])) m->pend[m->nPend++] = i;
 }
 // a proxy key -> {page, knob}, or false
+const char kQPre[3] = {'p', 'f', 'b'};
 bool q_key(const char* k, int* pg, int* kn) {
-    if ((k[0] != 'p' && k[0] != 'f') || k[1] != 'k' || k[2] < '1' || k[2] > '8') return false;
-    *pg = k[0] == 'f'; *kn = k[2] - '1'; return true;
+    if (k[1] != 'k' || k[2] < '1' || k[2] > '8') return false;
+    for (int g = 0; g < 3; ++g) if (k[0] == kQPre[g]) { *pg = g; *kn = k[2] - '1'; return true; }
+    return false;
 }
-const char* q_target(const MOne* m, int pg, int kn) { return kQTarget[pg][m->qSel[pg]][kn]; }
+const char* q_target(const MOne* m, int pg, int kn) { return kQTarget[pg][pg < 2 ? m->qSel[pg] : 0][kn]; }
 int get_param(void* i, const char* k, char* buf, int n);
 void set_param(void* i, const char* k, const char* v);
 float q_norm(MOne* m, const char* t) {                // a target's position, 0..1
@@ -797,7 +802,7 @@ bool q_set(MOne* m, const char* k, int iv) {
             const int s = clampi(iv, 0, 1);
             if (s != m->qSel[pg]) {
                 m->qSel[pg] = s; q_push(m, kQSelKey[pg]);
-                char pk[4] = {pg ? 'f' : 'p', 'k', '1', 0};
+                char pk[4] = {kQPre[pg], 'k', '1', 0};
                 for (int j = 0; j < 8; ++j) { pk[2] = (char)('1' + j); q_push(m, pk); }
             }
             return true;
@@ -805,11 +810,16 @@ bool q_set(MOne* m, const char* k, int iv) {
     int pg, kn; if (!q_key(k, &pg, &kn) || k[3]) return false;
     const char* t = q_target(m, pg, kn);
     if (!t) { q_push(m, k); return true; }
-    const int raw = (int)lroundf(q_norm(m, t) * 99), want = clampi(iv, 0, 99), d = want - raw;
+    // The turn's direction is measured from the value MPC itself last held (what it sent, or read back from us), not
+    // from the target: while a sound loads MPC keeps sending from its own copy, and comparing with the target then read
+    // as a jump and the knob seemed to stop.
+    const int want = clampi(iv, 0, 99), held = m->qHeld[pg][kn], d = want - held;
+    m->qHeld[pg][kn] = want;
     if (d == 0) return true;
-    if (d > 6 || d < -6) { q_push(m, k); return true; }   // not a turn (a catch-up, automation): just show it again
+    if (d > 12 || d < -12) { q_push(m, k); return true; }  // not a turn (a catch-up, automation): just show it again
     const double now = now_s();
-    const int mult = now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
+    const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
+    const int mult = !pick && now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
     m->qLast[pg][kn] = now;
     q_step(m, t, d > 0 ? 1 : -1, mult);
     q_push(m, k); q_push(m, t);
@@ -822,7 +832,7 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
     int pg, kn; if (!q_key(k, &pg, &kn)) return false;
     const char* t = q_target(m, pg, kn);
     const char* r = k + 3;
-    if (!*r) { *len = snprintf(buf, n, "%d", t ? (int)lroundf(q_norm(m, t) * 99) : 0); return true; }
+    if (!*r) { const int v = t ? (int)lroundf(q_norm(m, t) * 99) : 0; m->qHeld[pg][kn] = v; *len = snprintf(buf, n, "%d", v); return true; }
     if (!t) { *len = snprintf(buf, n, " "); return true; }
     const int i = pidx(t); if (i < 0) { *len = 0; return true; }
     const param_t& P = PARAMS[i];
@@ -846,9 +856,9 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
 }
 // a target moved some other way (the screen, a preset): its proxy follows
 void q_follow(MOne* m, const char* k) {
-    for (int pg = 0; pg < 2; ++pg) for (int kn = 0; kn < 8; ++kn) {
+    for (int pg = 0; pg < 3; ++pg) for (int kn = 0; kn < 8; ++kn) {
         const char* t = q_target(m, pg, kn);
-        if (t && !strcmp(t, k)) { char pk[4] = {pg ? 'f' : 'p', 'k', (char)('1' + kn), 0}; q_push(m, pk); }
+        if (t && !strcmp(t, k)) { char pk[4] = {kQPre[pg], 'k', (char)('1' + kn), 0}; q_push(m, pk); }
     }
 }
 

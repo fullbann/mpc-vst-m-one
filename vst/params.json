@@ -964,6 +964,18 @@
    "dynamic_name": true,
    "dynamic_display": true,
    "live": true
+  },
+  {
+   "key": "bk1",
+   "name": "Preset",
+   "min": 0,
+   "max": 99,
+   "nudge_pct": 5,
+   "default": 50,
+   "display": "int",
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
   }
  ]
 }
