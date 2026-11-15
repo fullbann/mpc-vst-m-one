@@ -33,6 +33,6 @@
  "art": "html",
  "skin_post": "skin_post.py",
  "defines": {
-  "UPDATE_QUIET_MS": 250
+  "UPDATE_QUIET_MS": 500
  }
 }
