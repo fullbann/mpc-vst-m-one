@@ -881,10 +881,10 @@ bool q_set(MOne* m, const char* k, const char* v) {
     const float d = want - ref;
     m->qSent[pg][kn] = want; m->qSentAt[pg][kn] = now;
     if (d < 0.001f && d > -0.001f) return true;
-    // One Q-Link click moves MPC's copy by 1/128 (0.0078). A bigger move is MPC starting again from a value it read back
+    // One Q-Link click moves MPC's copy by 1/128 (0.0078), up to ~4/128 on a quick turn (MPC's own speed-up). A bigger move is MPC starting again from a value it read back
     // from us (after a report or a screen rebuild): not a turn. Taking it as one made the knob step backwards now and then,
     // and on a sound knob each of those loaded a sound (and its effects) -- the "glitches".
-    if (d > 0.03f || d < -0.03f) { MONE_TRACE("  q %s %.4f ref %.4f RESYNC", k, want, ref); return true; }
+    if (d > 0.06f || d < -0.06f) { MONE_TRACE("  q %s %.4f ref %.4f RESYNC", k, want, ref); return true; }
     {   // a smooth value (Volume): it moves exactly as far as MPC moved the knob, like a knob on the screen (stepping it
         // 3 at a time on a quick turn sent Volume to the bottom in a second on the Force)
         const int ti = pidx(t);
@@ -906,7 +906,8 @@ bool q_set(MOne* m, const char* k, const char* v) {
         if (now - m->qLast[pg][kn] < 0.5 && ++m->pickAcc[pg] < (pg == 0 ? 12 : 4)) { m->qLast[pg][kn] = now; return true; }
         m->pickAcc[pg] = 0;
     }
-    const int mult = !pick && now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
+    // as many steps as MPC moved its knob (it already speeds up a quick turn); a sound pick is one
+    const int mult = pick ? 1 : clampi((int)lroundf((d < 0 ? -d : d) * 128.0f), 1, 4);
     m->qLast[pg][kn] = now;
     MONE_TRACE("  q %s %.4f ref %.4f -> %s %+d x%d", k, want, ref, t, d > 0 ? 1 : -1, mult);
     q_step(m, t, d > 0 ? 1 : -1, mult);
