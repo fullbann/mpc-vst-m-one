@@ -21,6 +21,7 @@ extern "C" {
 
 #include <math.h>
 #include <new>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -154,7 +155,47 @@ void lib_scan() {
     }
 }
 void lib_init() { pthread_once(&g_libOnce, lib_scan); }
-#ifdef MONE_TRACE_FILE
+#ifdef MONE_TRACE_RAM
+// Test builds only (2026-11-15): the log goes into a ring in memory; a normal-priority thread of its own writes it to
+// /tmp/mone-trace.txt (RAM) once a second. Nothing on the audio thread touches a file (the file-writing trace build
+// froze a Force).
+constexpr int kTrLines = 8192, kTrLen = 112;
+char g_tr[kTrLines][kTrLen];
+volatile int g_trReady[kTrLines];
+int g_trHead = 0;                                  // next slot to fill (atomic)
+pthread_once_t g_trOnce = PTHREAD_ONCE_INIT;
+void* tr_writer(void*) {
+    FILE* f = fopen("/tmp/mone-trace.txt", "a");
+    int tail = 0;
+    for (;;) {
+        sleep(1);
+        if (!f) { f = fopen("/tmp/mone-trace.txt", "a"); if (!f) continue; }
+        const int head = __atomic_load_n(&g_trHead, __ATOMIC_ACQUIRE);
+        if (head - tail > kTrLines) { fprintf(f, "... %d lines lost\n", head - tail - kTrLines); tail = head - kTrLines; }
+        for (; tail < head; ++tail) {
+            const int i = tail % kTrLines;
+            for (int w = 0; w < 50 && !__atomic_load_n(&g_trReady[i], __ATOMIC_ACQUIRE); ++w) usleep(1000);
+            fputs(g_tr[i], f); fputc('\n', f);
+            __atomic_store_n(&g_trReady[i], 0, __ATOMIC_RELEASE);
+        }
+        fflush(f);
+    }
+    return nullptr;
+}
+void tr_start() { pthread_t t; pthread_attr_t a; pthread_attr_init(&a); pthread_attr_setdetachstate(&a, PTHREAD_CREATE_DETACHED);
+                  pthread_create(&t, &a, tr_writer, nullptr); pthread_attr_destroy(&a); }
+void tr_line(const char* fmt, ...) __attribute__((format(printf, 1, 2)));
+void tr_line(const char* fmt, ...) {
+    pthread_once(&g_trOnce, tr_start);
+    const int n = __atomic_fetch_add(&g_trHead, 1, __ATOMIC_ACQ_REL), i = n % kTrLines;
+    struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t);
+    int o = snprintf(g_tr[i], kTrLen, "%ld.%03ld ", (long)t.tv_sec, t.tv_nsec / 1000000);
+    va_list ap; va_start(ap, fmt); vsnprintf(g_tr[i] + o, (size_t)(kTrLen - o), fmt, ap); va_end(ap);
+    __atomic_store_n(&g_trReady[i], 1, __ATOMIC_RELEASE);
+}
+#define MONE_TRACE(...) tr_line(__VA_ARGS__)
+extern "C" void wrap_trace(int kind, int i, float n) { if (kind == 0) MONE_TRACE("host set p%d %.5f", i, n); else if (kind == 2) MONE_TRACE("UPDATE DISPLAY"); else if (kind == 3) MONE_TRACE("  report p%d %.4f", i, n); }
+#elif defined(MONE_TRACE_FILE)
 // Test builds only: a log of every value MPC sets (wrapper WRAP_TRACE) and what the Library does with it.
 FILE* g_trace = nullptr;
 void trace_open() {
@@ -673,6 +714,7 @@ void select_sound(MOne* m) {
     // A Q-Link scrolling through sounds: the effects stay as they are until the knob stops (mpc_engine_changed), so
     // each click only loads the voices (rebuilding both effects every click glitched the Force).
     const bool picking = now_s() - m->lastPick < 2.0;
+    MONE_TRACE("  select_sound mode %d prog %d combi %d keepfx %d", m->mode, m->program, m->combi, (int)picking);
     m->eng.setKeepFx(picking);
     if (m->mode) m->eng.selectCombi(m->combi); else m->eng.selectProgram(m->program);
     m->eng.setKeepFx(false);
@@ -843,6 +885,21 @@ bool q_set(MOne* m, const char* k, const char* v) {
     // from us (after a report or a screen rebuild): not a turn. Taking it as one made the knob step backwards now and then,
     // and on a sound knob each of those loaded a sound (and its effects) -- the "glitches".
     if (d > 0.03f || d < -0.03f) { MONE_TRACE("  q %s %.4f ref %.4f RESYNC", k, want, ref); return true; }
+    {   // a smooth value (Volume): it moves exactly as far as MPC moved the knob, like a knob on the screen (stepping it
+        // 3 at a time on a quick turn sent Volume to the bottom in a second on the Force)
+        const int ti = pidx(t);
+        if (ti >= 0 && PARAMS[ti].nopts < 2 && !PARAMS[ti].int_display && PARAMS[ti].max > PARAMS[ti].min) {
+            const param_t& P = PARAMS[ti];
+            char b[64] = ""; get_param(m, t, b, sizeof b);
+            float nv = (float)atof(b) + d * (P.max - P.min);
+            nv = nv < P.min ? P.min : nv > P.max ? P.max : nv;
+            char out[32]; snprintf(out, sizeof out, "%.3f", nv);
+            MONE_TRACE("  q %s %.4f ref %.4f -> %s = %s", k, want, ref, t, out);
+            set_param(m, t, out);
+            q_push(m, k); q_push(m, t);
+            return true;
+        }
+    }
     const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
     if (pick) {                       // slow (user, 2026-11-15): the first click after a pause picks, then every 4th (Play's Sound Select: 12th)
         m->lastPick = now;
@@ -1102,7 +1159,7 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
     // click as a preset change (screen and Q-Link screens rebuilt, the knob dropped). Told once the knob has stopped.
     const bool picking = now_s() - m->lastPick < 2.0;
-    if (m->fxLate && !picking && !m->noRom) { m->fxLate = false; fx_follow_sound(m); fx_apply(m, false); }   // retune: a type kept carries on, no restart
+    if (m->fxLate && !picking && !m->noRom) { MONE_TRACE("  fx late load"); m->fxLate = false; fx_follow_sound(m); fx_apply(m, false); }   // retune: a type kept carries on, no restart
     if ((m->changed & 1) && !picking) { m->changed &= ~1u; snprintf(key, len, "program"); return 1; }
     if ((m->changed & 2) && !picking) { m->changed &= ~2u; snprintf(key, len, "combi"); return 1; }
     if (m->changed & kChgSound) { m->changed &= ~kChgSound; snprintf(key, len, "sound"); return 1; }
