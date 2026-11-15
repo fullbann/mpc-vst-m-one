@@ -1054,7 +1054,7 @@ void set_param_(void* i, const char* k, const char* v) {
         const bool was = m->fxOn; m->fxOn = iv != 0; m->eng.setBypassFx(!m->fxOn);
         if (m->fxOn && !was && !m->noRom) { fx_follow_sound(m); fx_apply(m, true); }   // back on: this sound's effects
     }
-    else if (!strcmp(k, "fx_follow")) m->fxFollow = iv != 0;
+    else if (!strcmp(k, "fx_follow")) m->fxFollow = true;   // Preset FX switch removed (user, 2026-11-15): a new sound always brings its effects (unless switched off)
     else if (!strcmp(k, "fx_reset")) { if (iv) { memcpy(m->fxUser, stored_fx(m), sizeof m->fxUser); fx_mark(m); fx_apply(m, true); } }
     else if (!strcmp(k, "fx_route")) {
         const uint8_t old = m->fxUser[8];

@@ -529,7 +529,7 @@
          "showWhenDataModelInvalid": "Show",
          "whenVisible": "WhenFocussed",
          "boundsType": "Absolute",
-         "bounds": "0 0 120 58",
+         "bounds": "0 0 120 66",
          "additionalInvalidatingHandles": []
         }
        },
@@ -559,7 +559,7 @@
          "showWhenDataModelInvalid": "Show",
          "whenVisible": "Always",
          "boundsType": "Absolute",
-         "bounds": "33 4 53 29",
+         "bounds": "25 4 69 37",
          "additionalInvalidatingHandles": []
         }
        },
@@ -597,7 +597,7 @@
          "showWhenDataModelInvalid": "Show",
          "whenVisible": "Always",
          "boundsType": "Absolute",
-         "bounds": "0 34 120 20",
+         "bounds": "0 42 120 20",
          "additionalInvalidatingHandles": []
         }
        }
@@ -2358,7 +2358,7 @@
          "showWhenDataModelInvalid": "Hide",
          "whenVisible": "Always",
          "boundsType": "Absolute",
-         "bounds": "410 160 120 58",
+         "bounds": "410 160 120 66",
          "additionalInvalidatingHandles": []
         }
        },
@@ -5873,7 +5873,7 @@
          "showWhenDataModelInvalid": "Show",
          "whenVisible": "WhenFocussed",
          "boundsType": "Absolute",
-         "bounds": "0 0 110 58",
+         "bounds": "0 0 110 66",
          "additionalInvalidatingHandles": []
         }
        },
@@ -5903,7 +5903,7 @@
          "showWhenDataModelInvalid": "Show",
          "whenVisible": "Always",
          "boundsType": "Absolute",
-         "bounds": "28 4 53 29",
+         "bounds": "20 4 69 37",
          "additionalInvalidatingHandles": []
         }
        },
@@ -5941,7 +5941,7 @@
          "showWhenDataModelInvalid": "Show",
          "whenVisible": "Always",
          "boundsType": "Absolute",
-         "bounds": "0 34 110 20",
+         "bounds": "0 42 110 20",
          "additionalInvalidatingHandles": []
         }
        }
@@ -7835,36 +7835,6 @@
         "version": 2,
         "componentData": {
          "version": 1,
-         "name": "PRESET FX",
-         "type": "shToggle",
-         "data": {
-          "version": 1,
-          "handleName": "Data"
-         }
-        },
-        "handle remapping": {
-         "version": 1,
-         "map": [
-          {
-           "key": "Data",
-           "value": "Parameter 38"
-          }
-         ]
-        },
-        "bounds": {
-         "version": 2,
-         "acceptsHWFocus": "Yes",
-         "showWhenDataModelInvalid": "Hide",
-         "whenVisible": "Always",
-         "boundsType": "Absolute",
-         "bounds": "640 32 120 58",
-         "additionalInvalidatingHandles": []
-        }
-       },
-       {
-        "version": 2,
-        "componentData": {
-         "version": 1,
          "name": "RESET",
          "type": "shTrig_fx_reset_RESET",
          "data": {
@@ -7917,7 +7887,7 @@
          "showWhenDataModelInvalid": "Hide",
          "whenVisible": "Always",
          "boundsType": "Absolute",
-         "bounds": "505 122 110 58",
+         "bounds": "505 112 110 66",
          "additionalInvalidatingHandles": []
         }
        },
@@ -8491,7 +8461,7 @@
          "showWhenDataModelInvalid": "Hide",
          "whenVisible": "Always",
          "boundsType": "Absolute",
-         "bounds": "1135 122 110 58",
+         "bounds": "1135 112 110 66",
          "additionalInvalidatingHandles": []
         }
        },
