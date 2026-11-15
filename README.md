@@ -3,6 +3,12 @@
 A Korg M1-style ROM workstation for MPC OS standalone devices (Akai Force, MPC One/Live/X/Key on Gen1; MPC XL, Live III on
 Gen2): 100 programs, 100 combinations, the M1's 33 effects, quick-edit knobs, a Library of SysEx banks.
 
+![Play page](docs/screen-play.png)
+
+| Browse | FX |
+|---|---|
+| ![Browse page](docs/screen-browse.png) | ![FX page](docs/screen-fx.png) |
+
 **You need your own Korg M1 ROM set.** Nothing from the ROMs is in this repository or in the released plugin: M-One reads
 your files from its `Content/ROMs` folder when it starts. Without them it is silent and its display says `NO M1 ROMS`.
 
