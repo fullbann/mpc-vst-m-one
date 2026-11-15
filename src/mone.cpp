@@ -302,6 +302,8 @@ struct MOne {
     double qLast[3][8] = {};
     float qSent[3][8] = {}, qRead[3][8] = {};      // the proxy value MPC last sent / last read back
     double qSentAt[3][8] = {};
+    int pickAcc[3] = {};                          // quick-turn clicks counted towards the next sound
+    bool fxLate = false;                          // the sound changed during a pick; its effects come when the knob stops
     double lastPick = 0;                          // when a Q-Link last picked a sound (program / combi reports wait)                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
@@ -656,18 +658,27 @@ void page_follow(MOne* m) {
     const int pg = (m->mode ? m->combi : m->program) / 20;
     if (pg != m->bank) { m->bank = pg; m->changed |= kChgPage; }
 }
+void fx_follow_sound(MOne* m) {
+    if (!m->fxFollow) return;
+    const int idx = m->mode ? m->combi : m->program;
+    memcpy(m->fxUser, m->fxCache[m->mode].idx == idx ? m->fxCache[m->mode].b : stored_fx(m), sizeof m->fxUser);
+    fx_mark(m);
+}
 void select_sound(MOne* m) {
     page_follow(m);
     memcpy(m->progs, src_progs(m), sizeof m->progs);
     memcpy(m->combis, src_combis(m), sizeof m->combis);
     if (m->noRom) return;                            // no engine without ROMs: the names are all there is
     m->eng.setKits(src_kits(m));
+    // A Q-Link scrolling through sounds: the effects stay as they are until the knob stops (mpc_engine_changed), so
+    // each click only loads the voices (rebuilding both effects every click glitched the Force).
+    const bool picking = now_s() - m->lastPick < 0.6;
+    m->eng.setKeepFx(picking);
     if (m->mode) m->eng.selectCombi(m->combi); else m->eng.selectProgram(m->program);
-    if (m->fxFollow) {
-        const int idx = m->mode ? m->combi : m->program;
-        memcpy(m->fxUser, m->fxCache[m->mode].idx == idx ? m->fxCache[m->mode].b : stored_fx(m), sizeof m->fxUser);
-        fx_mark(m);
-    }
+    m->eng.setKeepFx(false);
+    if (picking) { m->fxLate = true; apply_macros(m, 0); return; }
+    m->fxLate = false;
+    fx_follow_sound(m);
     apply_macros(m);   // rebuilds the effects from the FX page's block
 }
 
@@ -830,7 +841,11 @@ bool q_set(MOne* m, const char* k, const char* v) {
     if (d < 0.001f && d > -0.001f) return true;
     if (d > 0.12f || d < -0.12f) { MONE_TRACE("  q %s %.4f ref %.4f JUMP", k, want, ref); q_push(m, k); return true; }   // a jump (automation, a catch-up): show it again
     const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
-    if (pick) m->lastPick = now;
+    if (pick) {                       // half speed (user, 2026-11-15): the first click after a pause picks, then every 2nd
+        m->lastPick = now;
+        if (now - m->qLast[pg][kn] < 0.5 && ++m->pickAcc[pg] < 2) { m->qLast[pg][kn] = now; q_push(m, k); return true; }
+        m->pickAcc[pg] = 0;
+    }
     const int mult = !pick && now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
     m->qLast[pg][kn] = now;
     MONE_TRACE("  q %s %.4f ref %.4f -> %s %+d x%d", k, want, ref, t, d > 0 ? 1 : -1, mult);
@@ -1084,6 +1099,7 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
     // click as a preset change (screen and Q-Link screens rebuilt, the knob dropped). Told once the knob has stopped.
     const bool picking = now_s() - m->lastPick < 0.6;
+    if (m->fxLate && !picking && !m->noRom) { m->fxLate = false; fx_follow_sound(m); fx_apply(m, true); }
     if ((m->changed & 1) && !picking) { m->changed &= ~1u; snprintf(key, len, "program"); return 1; }
     if ((m->changed & 2) && !picking) { m->changed &= ~2u; snprintf(key, len, "combi"); return 1; }
     if (m->changed & kChgSound) { m->changed &= ~kChgSound; snprintf(key, len, "sound"); return 1; }

@@ -130,6 +130,9 @@ public:
     // next note, or the next 20.8 ms update for envelope-independent terms.
     // Combination timbres take their programs from RomTables::programs.
     void playProgram(const uint8_t* prog143);
+    // Fullban: while true, a new program / combination keeps the running effects (a Q-Link scrolling through sounds
+    // would otherwise rebuild both effects on every click)
+    void setKeepFx(bool k) { keepFx_ = k; }
     void playCombi(const uint8_t* combi124);
     // After an edit of the 25-byte effect block: rebuilds the effects.
     void refreshEffects(const uint8_t* block) { fx_.configure(block); }
@@ -243,6 +246,7 @@ private:
     Voice voice_[kVoices];
     uint8_t queue_[kVoices];
     bool combiMode_ = false;
+    bool keepFx_ = false;
     bool bypassFx_ = false;
     bool refMode_ = false;
     char name_[11] = {0};

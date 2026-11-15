@@ -188,7 +188,7 @@ void Engine::playProgram(const uint8_t* p) {
     memcpy(name_, p, 10);
     name_[10] = 0;
     for (int i = 0; i < 10; ++i) if (name_[i] == 0) name_[i] = ' ';   // the preload pads with NUL
-    fx_.configure(p + P_FX);
+    if (!keepFx_) fx_.configure(p + P_FX);
 }
 
 void Engine::selectCombi(int index) {
@@ -215,7 +215,7 @@ void Engine::playCombi(const uint8_t* c) {
     memcpy(name_, c, 10);
     name_[10] = 0;
     for (int i = 0; i < 10; ++i) if (name_[i] == 0) name_[i] = ' ';
-    fx_.configure(c + 11);
+    if (!keepFx_) fx_.configure(c + 11);
 }
 
 // ---------------------------------------------------------------------------
