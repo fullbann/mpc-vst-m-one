@@ -345,6 +345,8 @@ struct MOne {
     double qSentAt[3][8] = {};
     int pickAcc[3] = {};                          // quick-turn clicks counted towards the next sound
     bool fxLate = false;                          // the sound changed during a pick; its effects come when the knob stops
+    char fkName[8][32] = {};                      // 1.3.0zb: FX Q-Link names as MPC last saw them (refreshed only by FX use)
+    bool fkFresh = true;
     double soundAt = 0;                           // last sound change (1.3.0za: Q-Link screens re-sent after it)
     double lastPick = 0;                          // when a Q-Link last picked a sound (program / combi reports wait)                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
@@ -943,6 +945,14 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
     const int i = pidx(t); if (i < 0) { *len = 0; return true; }
     const param_t& P = PARAMS[i];
     char k2[40];
+    if (!strcmp(r, "_name") && pg == 1 && !m->fkFresh && m->fkName[kn][0]) { *len = snprintf(buf, n, "%s", m->fkName[kn]); return true; }
+    if (!strcmp(r, "_name") && pg == 1) {   // 1.3.0zb test: a sound change must not rename the FX page's Q-Links (MPC flips the Q-Link screens to them)
+        snprintf(k2, sizeof k2, "%s_name", t);
+        if (!(P.dynamic_name && get_param(m, k2, buf, n) > 0)) snprintf(buf, n, "%s", P.name);
+        snprintf(m->fkName[kn], sizeof m->fkName[kn], "%s", buf);
+        if (kn == 7) m->fkFresh = false;
+        *len = (int)strlen(buf); return true;
+    }
     if (!strcmp(r, "_name")) {
         snprintf(k2, sizeof k2, "%s_name", t);
         if (P.dynamic_name && get_param(m, k2, buf, n) > 0) { *len = (int)strlen(buf); return true; }
@@ -971,6 +981,7 @@ void q_follow(MOne* m, const char* k) {
 void set_param_(void* i, const char* k, const char* v);
 void set_param(void* i, const char* k, const char* v) {
     MOne* m = static_cast<MOne*>(i);
+    if (!strncmp(k, "fx", 2) || !strncmp(k, "fk", 2) || !strcmp(k, "q_fx")) m->fkFresh = true;   // FX in use: its Q-Link names follow again
     if (q_set(m, k, v)) return;
     set_param_(i, k, v);
     q_follow(m, k);
