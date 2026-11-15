@@ -347,7 +347,6 @@ struct MOne {
     bool fxLate = false;                          // the sound changed during a pick; its effects come when the knob stops
     char fkName[8][32] = {};                      // 1.3.0zb: FX Q-Link names as MPC last saw them (refreshed only by FX use)
     bool fkFresh = true;
-    double soundAt = 0;                           // last sound change (1.3.0za: Q-Link screens re-sent after it)
     double lastPick = 0;                          // when a Q-Link last picked a sound (program / combi reports wait)                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
@@ -718,7 +717,6 @@ void fx_follow_sound(MOne* m) {
     fx_mark(m); m->fxSilent = true;
 }
 void select_sound(MOne* m) {
-    m->soundAt = now_s();
     page_follow(m);
     memcpy(m->progs, src_progs(m), sizeof m->progs);
     memcpy(m->combis, src_combis(m), sizeof m->combis);
@@ -816,7 +814,7 @@ void midi(void* i, const uint8_t* msg, int len) {
 // turn). The XL keeps its direct 16 Q-Links.
 const char* const kQTarget[3][2][8] = {
     {{"cutoff", "eg_int", "attack", "decay", "sustain", "release", "vibrato", "fx_amt"},
-     {"volume", "rev_amt", "dly_amt", nullptr, nullptr, nullptr, nullptr, nullptr}},   // no Sound Select knob (user, 2026-11-15): sounds by touch
+     {"volume", "sound", "rev_amt", "dly_amt", nullptr, nullptr, nullptr, nullptr}},   // Sound Select back (user, 2026-11-15, once the FX flash was fixed)
     {{"fx1_p1", "fx1_p2", "fx1_p3", "fx1_p4", "fx1_p5", "fx1_p6", "fx1_p7", "fx1_p8"},
      {"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"}},
     {{"sound", nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},          // Browse: one Preset knob
@@ -946,7 +944,8 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
     const param_t& P = PARAMS[i];
     char k2[40];
     if (!strcmp(r, "_name") && pg == 1 && !m->fkFresh && m->fkName[kn][0]) { *len = snprintf(buf, n, "%s", m->fkName[kn]); return true; }
-    if (!strcmp(r, "_name") && pg == 1) {   // 1.3.0zb test: a sound change must not rename the FX page's Q-Links (MPC flips the Q-Link screens to them)
+    if (!strcmp(r, "_name") && pg == 1) {   // A sound change must not rename the FX page's Q-Links: MPC flashes the Q-Link screens over to renamed ones (real Force,
+        // recorded 2026-11-15). They follow again once the FX page is used (a tap on Effect 1 / 2, an FX knob).
         snprintf(k2, sizeof k2, "%s_name", t);
         if (!(P.dynamic_name && get_param(m, k2, buf, n) > 0)) snprintf(buf, n, "%s", P.name);
         snprintf(m->fkName[kn], sizeof m->fkName[kn], "%s", buf);
@@ -1188,16 +1187,6 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
             if (strncmp(b, m->fxSnap[i], sizeof m->fxSnap[i] - 1)) { snprintf(m->fxSnap[i], sizeof m->fxSnap[i], "%s", b); if (!m->fxSilent) m->changed |= 1u << (2 + i); }
         }
         m->fxSilent = false;
-    }
-    // 1.3.0za test: after a sound change MPC's Q-Link screens can come back showing the FX page's knobs (real Force only).
-    // Tapping the section fixes them; this does what that tap does, 0.7 s after the last sound change.
-    if (m->soundAt > 0 && now_s() - m->soundAt > 0.7 && now_s() - m->lastPick > 2.0) {
-        m->soundAt = 0;
-        for (int pg = 0; pg < 2; ++pg) {
-            q_push(m, kQSelKey[pg]);
-            char pk[4] = {kQPre[pg], 'k', '1', 0};
-            for (int j = 0; j < 8; ++j) { pk[2] = (char)('1' + j); q_push(m, pk); }
-        }
     }
     if (m->nPend > 0) { const int i = m->pend[0]; memmove(m->pend, m->pend + 1, sizeof(int) * (size_t)--m->nPend); snprintf(key, len, "%s", PARAMS[i].key); return 1; }
     // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
