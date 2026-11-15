@@ -345,6 +345,7 @@ struct MOne {
     double qSentAt[3][8] = {};
     int pickAcc[3] = {};                          // quick-turn clicks counted towards the next sound
     bool fxLate = false;                          // the sound changed during a pick; its effects come when the knob stops
+    double soundAt = 0;                           // last sound change (1.3.0za: Q-Link screens re-sent after it)
     double lastPick = 0;                          // when a Q-Link last picked a sound (program / combi reports wait)                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
@@ -715,6 +716,7 @@ void fx_follow_sound(MOne* m) {
     fx_mark(m); m->fxSilent = true;
 }
 void select_sound(MOne* m) {
+    m->soundAt = now_s();
     page_follow(m);
     memcpy(m->progs, src_progs(m), sizeof m->progs);
     memcpy(m->combis, src_combis(m), sizeof m->combis);
@@ -1175,6 +1177,16 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
             if (strncmp(b, m->fxSnap[i], sizeof m->fxSnap[i] - 1)) { snprintf(m->fxSnap[i], sizeof m->fxSnap[i], "%s", b); if (!m->fxSilent) m->changed |= 1u << (2 + i); }
         }
         m->fxSilent = false;
+    }
+    // 1.3.0za test: after a sound change MPC's Q-Link screens can come back showing the FX page's knobs (real Force only).
+    // Tapping the section fixes them; this does what that tap does, 0.7 s after the last sound change.
+    if (m->soundAt > 0 && now_s() - m->soundAt > 0.7 && now_s() - m->lastPick > 2.0) {
+        m->soundAt = 0;
+        for (int pg = 0; pg < 2; ++pg) {
+            q_push(m, kQSelKey[pg]);
+            char pk[4] = {kQPre[pg], 'k', '1', 0};
+            for (int j = 0; j < 8; ++j) { pk[2] = (char)('1' + j); q_push(m, pk); }
+        }
     }
     if (m->nPend > 0) { const int i = m->pend[0]; memmove(m->pend, m->pend + 1, sizeof(int) * (size_t)--m->nPend); snprintf(key, len, "%s", PARAMS[i].key); return 1; }
     // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
