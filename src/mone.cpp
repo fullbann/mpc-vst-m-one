@@ -807,7 +807,7 @@ void q_step(MOne* m, const char* t, int dir, int mult) {
         snprintf(out, sizeof out, "%d", clampi(idx + dir, 0, P.nopts - 1));
     } else {
         const bool whole = P.int_display || P.max - P.min > 20;
-        const float step = whole ? 1.0f : (P.max - P.min) / 60.0f;
+        const float step = whole ? 1.0f : (P.max - P.min) / 100.0f;   // a value knob: 100 clicks end to end, like the Quick Edit knobs
         float v = (float)atof(b) + dir * mult * step;
         v = v < P.min ? P.min : v > P.max ? P.max : v;
         if (whole) snprintf(out, sizeof out, "%d", (int)lroundf(v)); else snprintf(out, sizeof out, "%.2f", v);
