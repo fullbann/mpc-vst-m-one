@@ -356,6 +356,7 @@ struct MOne {
     int macro[kMacros] = {0};
     float volDb = -4.0f;
     bool fxOn = true;
+    uint8_t fxOffMask = 0;                        // FX1 / FX2 switched off by the user: a new sound doesn't switch them back on
     unsigned changed = 0;                         // bit 0 program, bit 1 combi, 2.. kFxKeys (mpc_engine_changed)
     uint8_t fxUser[m1::kFxBlockLen] = {33, 33};   // the FX page's effect block (FX AMOUNT is laid over it, fx_apply)
     uint8_t fxDef[33][8] = {{0}};                 // per type: the settings a newly picked type starts from
@@ -517,9 +518,10 @@ bool fx_param_set(MOne* m, const char* k, double v) {
     const int s = k[2] - '1';
     const char* r = k + 4;
     const int iv = (int)lround(v);
-    if (!strcmp(r, "on")) { if (iv) m->fxUser[8] |= s ? 0x0C : 0x03; else m->fxUser[8] &= (uint8_t)~(s ? 0x0C : 0x03); }
-    else if (!strcmp(r, "cat")) fx_set_cat(m, s, iv);
-    else if (!strcmp(r, "type")) fx_set_type(m, s, iv);
+    if (!strcmp(r, "on")) { if (iv) { m->fxUser[8] |= s ? 0x0C : 0x03; m->fxOffMask &= (uint8_t)~(1 << s); }
+                            else { m->fxUser[8] &= (uint8_t)~(s ? 0x0C : 0x03); m->fxOffMask |= (uint8_t)(1 << s); } }
+    else if (!strcmp(r, "cat")) { fx_set_cat(m, s, iv); m->fxOffMask &= (uint8_t)~(1 << s); }
+    else if (!strcmp(r, "type")) { fx_set_type(m, s, iv); m->fxOffMask &= (uint8_t)~(1 << s); }
     else if (!strcmp(r, "type_prev")) { if (iv) fx_step_type(m, s, -1); }
     else if (!strcmp(r, "type_next")) { if (iv) fx_step_type(m, s, +1); }
     else if (r[0] == 'p' && r[1] >= '1' && r[1] <= '8' && !r[2]) {
@@ -700,9 +702,13 @@ void page_follow(MOne* m) {
     if (pg != m->bank) { m->bank = pg; m->changed |= kChgPage; }
 }
 void fx_follow_sound(MOne* m) {
-    if (!m->fxFollow) return;
+    // Effects switched off (the Play page's Effects switch): a new sound leaves the effects alone, so nothing on the FX
+    // page changes behind your back (user, 2026-11-15). They catch up when Effects goes back on.
+    if (!m->fxFollow || !m->fxOn) return;
     const int idx = m->mode ? m->combi : m->program;
     memcpy(m->fxUser, m->fxCache[m->mode].idx == idx ? m->fxCache[m->mode].b : stored_fx(m), sizeof m->fxUser);
+    if (m->fxOffMask & 1) m->fxUser[8] &= (uint8_t)~0x03;   // FX1 / FX2 the user switched off stay off
+    if (m->fxOffMask & 2) m->fxUser[8] &= (uint8_t)~0x0C;
     // A new sound's own effects are NOT reported one by one: each report shows that parameter on the Force's Q-Link
     // screens (they jumped to FX parameters while the data wheel picked sounds). The screen's text changes anyway, so
     // MPC redraws the page and reads them; MPC is just told nothing parameter by parameter.
@@ -1010,7 +1016,10 @@ void set_param_(void* i, const char* k, const char* v) {
         else if (idx != m->program) { m->program = idx; m->changed |= 1 | kChgSound; select_sound(m); }
     }
     else if (!strcmp(k, "volume")) m->volDb = (float)atof(v);
-    else if (!strcmp(k, "fx")) { m->fxOn = iv != 0; m->eng.setBypassFx(!m->fxOn); }
+    else if (!strcmp(k, "fx")) {
+        const bool was = m->fxOn; m->fxOn = iv != 0; m->eng.setBypassFx(!m->fxOn);
+        if (m->fxOn && !was && !m->noRom) { fx_follow_sound(m); fx_apply(m, true); }   // back on: this sound's effects
+    }
     else if (!strcmp(k, "fx_follow")) m->fxFollow = iv != 0;
     else if (!strcmp(k, "fx_reset")) { if (iv) { memcpy(m->fxUser, stored_fx(m), sizeof m->fxUser); fx_mark(m); fx_apply(m, true); } }
     else if (!strcmp(k, "fx_route")) {
