@@ -803,7 +803,7 @@ void midi(void* i, const uint8_t* msg, int len) {
 // turn). The XL keeps its direct 16 Q-Links.
 const char* const kQTarget[3][2][8] = {
     {{"cutoff", "eg_int", "attack", "decay", "sustain", "release", "vibrato", "fx_amt"},
-     {"volume", "sound", "rev_amt", "dly_amt", nullptr, nullptr, nullptr, nullptr}},
+     {"volume", "rev_amt", "dly_amt", nullptr, nullptr, nullptr, nullptr, nullptr}},   // no Sound Select knob (user, 2026-11-15): sounds by touch
     {{"fx1_p1", "fx1_p2", "fx1_p3", "fx1_p4", "fx1_p5", "fx1_p6", "fx1_p7", "fx1_p8"},
      {"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"}},
     {{"sound", nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},          // Browse: one Preset knob
