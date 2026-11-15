@@ -15,6 +15,18 @@ your files from its `Content/ROMs` folder when it starts. Without them it is sil
 
 The catalog's desktop installer checks each file before copying it ("Your ROMs and files").
 
+## Install (MPC OS 3.10.1 or later)
+
+1. **Preferences > Enhancements (Beta)**: turn on **Enable Enhancements** and **External Plugin Support**.
+2. Download `M-One-1.3.0.zip` from [Releases](https://github.com/fullbann/mpc-vst-m-one/releases) and unzip it.
+3. Copy the folder `Fullban - VST - M-One` into `VST2 Plugins` at the top of a drive: the internal drive, an SD card or a
+   USB drive (make `VST2 Plugins` if it isn't there). One folder works on Gen1 (Force, Live, One, X, Key) and Gen2 (XL, Live III).
+4. Put your ROM files (table above) in `Fullban - VST - M-One/Content/ROMs`.
+5. Restart MPC (a USB drive can just be re-plugged). M-One is under **External Plugins** and opens on **Fullban / Preview**.
+
+**Q-Links.** Force (8 Q-Links): on Play, tap **Quick Edit** or **Sound** to choose what the knobs control; on FX tap
+**Effect 1** or **Effect 2**; Browse has one Preset knob. Units with 16 Q-Links get everything at once.
+
 ## Sounds
 
 - **Factory**: from your own ALL DATA dump.
