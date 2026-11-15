@@ -340,13 +340,13 @@ struct MOne {
     bool fxDirty = false, fxSilent = false; double fxDirtyAt = 0;   // FX values to report (see fx_mark)
     char fxSnap[32][24] = {};                     // what MPC was last told for each kFxKeys entry
     int qSel[2] = {0, 0};                         // Q-Link section: [0] Play (Top / Bottom), [1] FX (FX 1 / FX 2)
-    double qLast[3][8] = {};
-    float qSent[3][8] = {}, qRead[3][8] = {};      // the proxy value MPC last sent / last read back
-    double qSentAt[3][8] = {};
-    int pickAcc[3] = {};                          // quick-turn clicks counted towards the next sound
+    double qLast[4][8] = {};
+    float qSent[4][8] = {}, qRead[4][8] = {};      // the proxy value MPC last sent / last read back
+    double qSentAt[4][8] = {};
+    int pickAcc[4] = {};                          // quick-turn clicks counted towards the next sound
     bool fxLate = false;                          // the sound changed during a pick; its effects come when the knob stops
-    char fkName[8][32] = {};                      // 1.3.0zb: FX Q-Link names as MPC last saw them (refreshed only by FX use)
-    bool fkFresh = true;
+    char fkName[2][8][32] = {};                   // FX Q-Link names (fk = FX page / gk = FX 2) as MPC last saw them (refreshed only by FX use)
+    bool fkFresh[2] = {true, true};
     double lastPick = 0;                          // when a Q-Link last picked a sound (program / combi reports wait)                         // the proxy value MPC holds (last sent or read back)                      // last proxy move per knob (fast turn -> bigger steps)
     int pend[48]; int nPend = 0;                  // PARAMS indices to report to MPC (proxies, their targets, selectors)
     double bornS = 0;                             // when create() ran (the Library auto-switch waits 3 s)
@@ -812,13 +812,15 @@ void midi(void* i, const uint8_t* msg, int len) {
 // Edit / Sound, Effect 1 / Effect 2) points the 8 proxy knobs pk1..8 (Play) / fk1..8 (FX) at it. A proxy is an endless
 // knob: it shows its target's name, value and position, and each Q-Link event steps the target (bigger steps in a fast
 // turn). The XL keeps its direct 16 Q-Links.
-const char* const kQTarget[3][2][8] = {
+const char* const kQTarget[4][2][8] = {
     {{"cutoff", "eg_int", "attack", "decay", "sustain", "release", "vibrato", "fx_amt"},
      {"volume", "sound", "rev_amt", "dly_amt", nullptr, nullptr, nullptr, nullptr}},   // Sound Select back (user, 2026-11-15, once the FX flash was fixed)
     {{"fx1_p1", "fx1_p2", "fx1_p3", "fx1_p4", "fx1_p5", "fx1_p6", "fx1_p7", "fx1_p8"},
      {"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"}},
     {{"sound", nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},          // Browse: one Preset knob
-     {"sound", nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr}}};
+     {"sound", nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr}},
+    {{"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"},   // gk1..8: FX 2 on the second Q-Link bank
+     {"fx2_p1", "fx2_p2", "fx2_p3", "fx2_p4", "fx2_p5", "fx2_p6", "fx2_p7", "fx2_p8"}}};
 const char* const kQSelKey[2] = {"q_play", "q_fx"};
 int pidx(const char* k) { for (int i = 0; i < (int)(sizeof PARAMS / sizeof PARAMS[0]); ++i) if (!strcmp(PARAMS[i].key, k)) return i; return -1; }
 void q_push(MOne* m, const char* k) {
@@ -827,13 +829,19 @@ void q_push(MOne* m, const char* k) {
     if (m->nPend < (int)(sizeof m->pend / sizeof m->pend[0])) m->pend[m->nPend++] = i;
 }
 // a proxy key -> {page, knob}, or false
-const char kQPre[3] = {'p', 'f', 'b'};
+const char kQPre[4] = {'p', 'f', 'b', 'g'};
 bool q_key(const char* k, int* pg, int* kn) {
     if (k[1] != 'k' || k[2] < '1' || k[2] > '8') return false;
-    for (int g = 0; g < 3; ++g) if (k[0] == kQPre[g]) { *pg = g; *kn = k[2] - '1'; return true; }
+    for (int g = 0; g < 4; ++g) if (k[0] == kQPre[g]) { *pg = g; *kn = k[2] - '1'; return true; }
     return false;
 }
+// The XL (and other 64-bit units with 16 Q-Links) reads the same 8-by-1 Q-Link file as the Force but uses all 16:
+// its first 8 are always Quick Edit / FX 1 (no section to tap), the second 8 Sound / FX 2 (user, 2026-11-15).
+#if defined(__aarch64__)
+const char* q_target(const MOne*, int pg, int kn) { return kQTarget[pg][0][kn]; }
+#else
 const char* q_target(const MOne* m, int pg, int kn) { return kQTarget[pg][pg < 2 ? m->qSel[pg] : 0][kn]; }
+#endif
 int get_param(void* i, const char* k, char* buf, int n);
 void set_param(void* i, const char* k, const char* v);
 float q_norm(MOne* m, const char* t) {                // a target's position, 0..1
@@ -956,13 +964,14 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
     const int i = pidx(t); if (i < 0) { *len = 0; return true; }
     const param_t& P = PARAMS[i];
     char k2[40];
-    if (!strcmp(r, "_name") && pg == 1 && !m->fkFresh && m->fkName[kn][0]) { *len = snprintf(buf, n, "%s", m->fkName[kn]); return true; }
-    if (!strcmp(r, "_name") && pg == 1) {   // A sound change must not rename the FX page's Q-Links: MPC flashes the Q-Link screens over to renamed ones (real Force,
+    const int fq = pg == 3 ? 1 : 0;
+    if (!strcmp(r, "_name") && (pg == 1 || pg == 3) && !m->fkFresh[fq] && m->fkName[fq][kn][0]) { *len = snprintf(buf, n, "%s", m->fkName[fq][kn]); return true; }
+    if (!strcmp(r, "_name") && (pg == 1 || pg == 3)) {   // A sound change must not rename the FX page's Q-Links: MPC flashes the Q-Link screens over to renamed ones (real Force,
         // recorded 2026-11-15). They follow again once the FX page is used (a tap on Effect 1 / 2, an FX knob).
         snprintf(k2, sizeof k2, "%s_name", t);
         if (!(P.dynamic_name && get_param(m, k2, buf, n) > 0)) snprintf(buf, n, "%s", P.name);
-        snprintf(m->fkName[kn], sizeof m->fkName[kn], "%s", buf);
-        if (kn == 7) m->fkFresh = false;
+        snprintf(m->fkName[fq][kn], sizeof m->fkName[fq][kn], "%s", buf);
+        if (kn == 7) m->fkFresh[fq] = false;
         *len = (int)strlen(buf); return true;
     }
     if (!strcmp(r, "_name")) {
@@ -984,7 +993,7 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
 }
 // a target moved some other way (the screen, a preset): its proxy follows
 void q_follow(MOne* m, const char* k) {
-    for (int pg = 0; pg < 3; ++pg) for (int kn = 0; kn < 8; ++kn) {
+    for (int pg = 0; pg < 4; ++pg) for (int kn = 0; kn < 8; ++kn) {
         const char* t = q_target(m, pg, kn);
         if (t && !strcmp(t, k) && strcmp(t, "sound")) { char pk[4] = {kQPre[pg], 'k', (char)('1' + kn), 0}; q_push(m, pk); }   // a sound knob's position is MPC's own
     }
@@ -993,7 +1002,7 @@ void q_follow(MOne* m, const char* k) {
 void set_param_(void* i, const char* k, const char* v);
 void set_param(void* i, const char* k, const char* v) {
     MOne* m = static_cast<MOne*>(i);
-    if (!strncmp(k, "fx", 2) || !strncmp(k, "fk", 2) || !strcmp(k, "q_fx")) m->fkFresh = true;   // FX in use: its Q-Link names follow again
+    if (!strncmp(k, "fx", 2) || !strncmp(k, "fk", 2) || !strncmp(k, "gk", 2) || !strcmp(k, "q_fx")) m->fkFresh[0] = m->fkFresh[1] = true;   // FX in use: its Q-Link names follow again
     if (q_set(m, k, v)) return;
     set_param_(i, k, v);
     q_follow(m, k);
@@ -1205,7 +1214,7 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
     // click as a preset change (screen and Q-Link screens rebuilt, the knob dropped). Told once the knob has stopped.
     const bool picking = now_s() - m->lastPick < 2.0;
-    for (int pg = 0; pg < 3; ++pg) for (int kn = 0; kn < 8; ++kn) {
+    for (int pg = 0; pg < 4; ++pg) for (int kn = 0; kn < 8; ++kn) {
         const char* t = q_target(m, pg, kn);
         const float v = m->qSent[pg][kn];
         if (t && !strcmp(t, "sound") && m->qSentAt[pg][kn] > 0 && now_s() - m->qSentAt[pg][kn] > 0.8 && (v < 0.25f || v > 0.75f)) {

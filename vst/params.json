@@ -942,6 +942,86 @@
    "dynamic_name": true,
    "dynamic_display": true,
    "live": true
+  },
+  {
+   "key": "gk1",
+   "name": "FX2 Q1",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "gk2",
+   "name": "FX2 Q2",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "gk3",
+   "name": "FX2 Q3",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "gk4",
+   "name": "FX2 Q4",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "gk5",
+   "name": "FX2 Q5",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "gk6",
+   "name": "FX2 Q6",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "gk7",
+   "name": "FX2 Q7",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
+  },
+  {
+   "key": "gk8",
+   "name": "FX2 Q8",
+   "min": 0,
+   "max": 1,
+   "default": 0.5,
+   "dynamic_name": true,
+   "dynamic_display": true,
+   "live": true
   }
  ]
 }
