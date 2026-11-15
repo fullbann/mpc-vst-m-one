@@ -839,7 +839,10 @@ bool q_set(MOne* m, const char* k, const char* v) {
     const float d = want - ref;
     m->qSent[pg][kn] = want; m->qSentAt[pg][kn] = now;
     if (d < 0.001f && d > -0.001f) return true;
-    if (d > 0.12f || d < -0.12f) { MONE_TRACE("  q %s %.4f ref %.4f JUMP", k, want, ref); q_push(m, k); return true; }   // a jump (automation, a catch-up): show it again
+    // One Q-Link click moves MPC's copy by 1/128 (0.0078). A bigger move is MPC starting again from a value it read back
+    // from us (after a report or a screen rebuild): not a turn. Taking it as one made the knob step backwards now and then,
+    // and on a sound knob each of those loaded a sound (and its effects) -- the "glitches".
+    if (d > 0.03f || d < -0.03f) { MONE_TRACE("  q %s %.4f ref %.4f RESYNC", k, want, ref); return true; }
     const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
     if (pick) {                       // slow (user, 2026-11-15): the first click after a pause picks, then every 4th (Play's Sound Select: 12th)
         m->lastPick = now;
