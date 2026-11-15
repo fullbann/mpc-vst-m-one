@@ -903,7 +903,7 @@ bool q_set(MOne* m, const char* k, const char* v) {
     const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
     if (pick) {                       // slow (user, 2026-11-15): the first click after a pause picks, then every 4th (Play's Sound Select: 12th)
         m->lastPick = now;
-        if (now - m->qLast[pg][kn] < 0.5 && ++m->pickAcc[pg] < (pg == 0 ? 12 : 4)) { m->qLast[pg][kn] = now; q_push(m, k); return true; }
+        if (now - m->qLast[pg][kn] < 0.5 && ++m->pickAcc[pg] < (pg == 0 ? 12 : 4)) { m->qLast[pg][kn] = now; return true; }
         m->pickAcc[pg] = 0;
     }
     const int mult = !pick && now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
@@ -920,7 +920,13 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
     int pg, kn; if (!q_key(k, &pg, &kn)) return false;
     const char* t = q_target(m, pg, kn);
     const char* r = k + 3;
-    if (!*r) { const float v = t ? q_norm(m, t) : 0.5f; m->qRead[pg][kn] = v; *len = snprintf(buf, n, "%.4f", v); return true; }
+    if (!*r) {
+        // A sound knob's position is MPC's own (it reads back what it last sent), so a re-read never makes it jump;
+        // the sound number is in its text. A value knob shows where its value is.
+        const bool pick = t && !strcmp(t, "sound");
+        const float v = !t ? 0.5f : pick ? (m->qSentAt[pg][kn] > 0 ? m->qSent[pg][kn] : 0.5f) : q_norm(m, t);
+        m->qRead[pg][kn] = v; *len = snprintf(buf, n, "%.4f", v); return true;
+    }
     if (!t) { *len = snprintf(buf, n, " "); return true; }
     const int i = pidx(t); if (i < 0) { *len = 0; return true; }
     const param_t& P = PARAMS[i];
@@ -1159,6 +1165,14 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
     // click as a preset change (screen and Q-Link screens rebuilt, the knob dropped). Told once the knob has stopped.
     const bool picking = now_s() - m->lastPick < 2.0;
+    for (int pg = 0; pg < 3; ++pg) for (int kn = 0; kn < 8; ++kn) {
+        const char* t = q_target(m, pg, kn);
+        const float v = m->qSent[pg][kn];
+        if (t && !strcmp(t, "sound") && m->qSentAt[pg][kn] > 0 && now_s() - m->qSentAt[pg][kn] > 0.8 && (v < 0.25f || v > 0.75f)) {
+            m->qSent[pg][kn] = m->qRead[pg][kn] = 0.5f;
+            char pk[4] = {kQPre[pg], 'k', (char)('1' + kn), 0}; q_push(m, pk);
+        }
+    }
     if (m->fxLate && !picking && !m->noRom) { MONE_TRACE("  fx late load"); m->fxLate = false; fx_follow_sound(m); fx_apply(m, false); }   // retune: a type kept carries on, no restart
     if ((m->changed & 1) && !picking) { m->changed &= ~1u; snprintf(key, len, "program"); return 1; }
     if ((m->changed & 2) && !picking) { m->changed &= ~2u; snprintf(key, len, "combi"); return 1; }
