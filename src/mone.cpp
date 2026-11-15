@@ -851,6 +851,19 @@ float q_norm(MOne* m, const char* t) {                // a target's position, 0.
 }
 void q_step(MOne* m, const char* t, int dir, int mult) {
     const int i = pidx(t); if (i < 0) return;
+    if (t[0] == 'f' && t[1] == 'x' && (t[2] == '1' || t[2] == '2') && t[3] == '_' && t[4] == 'p' && t[5] >= '1' && t[5] <= '6' && !t[6]) {
+        // An effect setting with a small range (On/Off, 3 filter steps, 0..10): one 1/100 page step rounded back to the
+        // same value, so its Q-Link never moved (user, 2026-11-15). Step it in its own units instead.
+        const int s = t[2] - '1', ty = fx_type(m, s);
+        if (ty >= 33) return;
+        const Kn& d = kKn[ty][t[5] - '1'];
+        if (d.kind == kNone || d.hi <= d.lo) return;
+        const int r = d.hi - d.lo;
+        const int v = clampi(kn_get(m->fxUser + 9 + 8 * s, d) + dir * (r > 100 ? mult * ((r + 99) / 100) : mult), d.lo, d.hi);
+        char out[32]; snprintf(out, sizeof out, "%.4f", (v - d.lo) * 100.0 / r);
+        set_param(m, t, out);
+        return;
+    }
     const param_t& P = PARAMS[i];
     char b[64] = ""; get_param(m, t, b, sizeof b);
     char out[32];
