@@ -749,6 +749,9 @@ void* create(const char*) {
     if (!m) return nullptr;
     m->bornS = now_s();
     lib_init();
+    // A new M-One opens on Library > Fullban > Preview (user, 2026-11-15); a saved project brings back its own choice.
+    for (int a = 0; a < g_nAuth; ++a) if (!strcasecmp(g_auth[a].name, "Fullban"))
+        for (int b = 0; b < g_auth[a].count; ++b) if (!strcasecmp(g_bank[g_auth[a].first + b].name, "Preview")) { m->libAuthor = a; m->libBank = b; }
     if (!g_rom) { m->noRom = true; fx_defaults(m); return m; }   // silent until the ROMs are in Content/ROMs
     const m1load::Rom& R = *g_rom;
     memcpy(m->kernel, R.kernel, sizeof m->kernel);
