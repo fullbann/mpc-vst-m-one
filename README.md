@@ -1,3 +1,5 @@
+[M-One-1.3.0-mpc-aarch64.zip](https://github.com/user-attachments/files/34873648/M-One-1.3.0-mpc-aarch64.zip)
+[M-One-1.3.0-mpc-armv7.zip](https://github.com/user-attachments/files/34873644/M-One-1.3.0-mpc-armv7.zip)
 # Fullban M-One
 
 A Korg M1-style ROM workstation for MPC OS standalone devices (Akai Force, MPC One/Live/X/Key on Gen1; MPC XL, Live III on
