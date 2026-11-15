@@ -5,9 +5,6 @@
  "version": 1300,
  "so": "m-one.so",
  "params": "params.json",
- "programs": {
-  "param": "program"
- },
  "targets": [
   "armv7",
   "aarch64"
