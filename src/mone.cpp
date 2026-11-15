@@ -841,9 +841,9 @@ bool q_set(MOne* m, const char* k, const char* v) {
     if (d < 0.001f && d > -0.001f) return true;
     if (d > 0.12f || d < -0.12f) { MONE_TRACE("  q %s %.4f ref %.4f JUMP", k, want, ref); q_push(m, k); return true; }   // a jump (automation, a catch-up): show it again
     const bool pick = !strcmp(t, "sound");                // a sound pick: one per click, never accelerated
-    if (pick) {                       // half speed (user, 2026-11-15): the first click after a pause picks, then every 2nd
+    if (pick) {                       // quarter speed (user, 2026-11-15): the first click after a pause picks, then every 4th
         m->lastPick = now;
-        if (now - m->qLast[pg][kn] < 0.5 && ++m->pickAcc[pg] < 2) { m->qLast[pg][kn] = now; q_push(m, k); return true; }
+        if (now - m->qLast[pg][kn] < 0.5 && ++m->pickAcc[pg] < 4) { m->qLast[pg][kn] = now; q_push(m, k); return true; }
         m->pickAcc[pg] = 0;
     }
     const int mult = !pick && now - m->qLast[pg][kn] < 0.06 ? 3 : 1;
