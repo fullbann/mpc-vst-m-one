@@ -337,7 +337,7 @@ struct MOne {
     double hlTime = 0;
     int rawAuthor = 50, rawBank = 50;              // the Library knobs: endless, put back to 50 after every move
     int encAcc[2] = {0, 0}; double encLast[2] = {0, 0};   // their click counting (author, bank)                // the author / bank knobs as MPC has them (0..99, loop round the list)
-    bool fxDirty = false; double fxDirtyAt = 0;   // FX values to report (see fx_mark)
+    bool fxDirty = false, fxSilent = false; double fxDirtyAt = 0;   // FX values to report (see fx_mark)
     char fxSnap[32][24] = {};                     // what MPC was last told for each kFxKeys entry
     int qSel[2] = {0, 0};                         // Q-Link section: [0] Play (Top / Bottom), [1] FX (FX 1 / FX 2)
     double qLast[3][8] = {};
@@ -703,7 +703,10 @@ void fx_follow_sound(MOne* m) {
     if (!m->fxFollow) return;
     const int idx = m->mode ? m->combi : m->program;
     memcpy(m->fxUser, m->fxCache[m->mode].idx == idx ? m->fxCache[m->mode].b : stored_fx(m), sizeof m->fxUser);
-    fx_mark(m);
+    // A new sound's own effects are NOT reported one by one: each report shows that parameter on the Force's Q-Link
+    // screens (they jumped to FX parameters while the data wheel picked sounds). The screen's text changes anyway, so
+    // MPC redraws the page and reads them; MPC is just told nothing parameter by parameter.
+    fx_mark(m); m->fxSilent = true;
 }
 void select_sound(MOne* m) {
     page_follow(m);
@@ -953,7 +956,7 @@ bool q_get(MOne* m, const char* k, char* buf, int n, int* len) {
 void q_follow(MOne* m, const char* k) {
     for (int pg = 0; pg < 3; ++pg) for (int kn = 0; kn < 8; ++kn) {
         const char* t = q_target(m, pg, kn);
-        if (t && !strcmp(t, k)) { char pk[4] = {kQPre[pg], 'k', (char)('1' + kn), 0}; q_push(m, pk); }
+        if (t && !strcmp(t, k) && strcmp(t, "sound")) { char pk[4] = {kQPre[pg], 'k', (char)('1' + kn), 0}; q_push(m, pk); }   // a sound knob's position is MPC's own
     }
 }
 
@@ -1157,10 +1160,12 @@ extern "C" int mpc_engine_changed(void* inst, char* key, int len) {
     if (m->fxDirty && now_s() - m->fxDirtyAt > 0.35) {
         m->fxDirty = false;
         char b[64];
+        const bool silentNow = m->fxSilent; (void)silentNow;
         for (int i = 0; i < kFxKeyCount; ++i) {
             b[0] = 0; get_param(m, kFxKeys[i], b, sizeof b);
-            if (strncmp(b, m->fxSnap[i], sizeof m->fxSnap[i] - 1)) { snprintf(m->fxSnap[i], sizeof m->fxSnap[i], "%s", b); m->changed |= 1u << (2 + i); }
+            if (strncmp(b, m->fxSnap[i], sizeof m->fxSnap[i] - 1)) { snprintf(m->fxSnap[i], sizeof m->fxSnap[i], "%s", b); if (!m->fxSilent) m->changed |= 1u << (2 + i); }
         }
+        m->fxSilent = false;
     }
     if (m->nPend > 0) { const int i = m->pend[0]; memmove(m->pend, m->pend + 1, sizeof(int) * (size_t)--m->nPend); snprintf(key, len, "%s", PARAMS[i].key); return 1; }
     // "program" is MPC's preset number (PROG_PARAM): telling it about each sound a Q-Link turn passes made MPC treat every
