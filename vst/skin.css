@@ -1,9 +1,9 @@
 /* Fullban M-One: dark slate + Fullban aqua, an M1-style yellow-green backlit display. Colours/effects only:
  * positions and sizes stay the layout's (MPC places its live controls on them). */
 :root {
-  --title-size: 17px;
-  --label-size: 14px;
-  --seg-size: 13px;
+  --title-size: 22px;
+  --label-size: 19px;
+  --seg-size: 17px;
   --button-size: 13px;
   --radius: 10px;
   --sheen: 0.07;

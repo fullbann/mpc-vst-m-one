@@ -102,7 +102,7 @@ def panel(im, box, title=None):
     if title:
         x = box[0] + 22
         for ch in title:   # letter-spaced caption
-            d.text((x, box[1] + 20), ch, font=font(15), fill=AQUA, anchor="lm"); x += d.textlength(ch, font=font(15)) + 4
+            d.text((x, box[1] + 20), ch, font=font(20), fill=AQUA, anchor="lm"); x += d.textlength(ch, font=font(20)) + 4
         d.line([(x + 12, box[1] + 20), (box[2] - 22, box[1] + 20)], fill=LINE + (255,), width=1)
     im.alpha_composite(lay)
 
@@ -150,9 +150,9 @@ def page_play():
     panel(im, QUICK, "QUICK EDIT")
     panel(im, SOUND, "SOUND")
     d = ImageDraw.Draw(im)
-    d.text((640, 508), "Quick-edit knobs at 0 = the sound as stored", font=font(16, "SemiBold"), fill=DIM, anchor="lm")
-    d.text((640, 536), "Turn them to shape any program or combination", font=font(16, "SemiBold"), fill=FAINT, anchor="lm")
-    d.text((640, 588), "Engine: PicoFaceM1 by Michi71  ·  GPL-3.0", font=font(13, "SemiBold"), fill=FAINT, anchor="lm")
+    d.text((640, 508), "Quick-edit knobs at 0 = the sound as stored", font=font(17, "SemiBold"), fill=DIM, anchor="lm")
+    d.text((640, 536), "Turn them to shape any program or combination", font=font(17, "SemiBold"), fill=FAINT, anchor="lm")
+    d.text((640, 588), "Engine: PicoFaceM1 by Michi71  ·  GPL-3.0", font=font(15, "SemiBold"), fill=FAINT, anchor="lm")
     return im
 
 LIB_LCD = ((81, 70, 569, 120), (711, 70, 1199, 120))   # the Library author / bank displays (stepper text areas)

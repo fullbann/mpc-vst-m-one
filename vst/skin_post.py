@@ -14,7 +14,7 @@ for c in d["pageData"]["componentDefinitions"]["localComponentDefinitions"]:
         if data.get("type") == "Value" and ts:
             ts["colour"] = "ff2fd2c6"; ts["font"]["style"] = "Bold"; n += 1
         elif data.get("type") == "Name" and ts:
-            ts["colour"] = "ff8a95a5"; ts["font"]["height"] = 15.0; ts["font"]["style"] = "SemiBold"
+            ts["colour"] = "ff8a95a5"; ts["font"]["height"] = 20.0; ts["font"]["style"] = "SemiBold"
 if not n:
     raise SystemExit("skin_post: no knob Value labels found -- update skin_post.py")
 # The selected control (the one the data wheel and the +/- keys drive) gets a soft aqua highlight: MPC draws a control's
